@@ -16,7 +16,8 @@
         "build": "webpack",
         "start-build": "node ./dist/bundle.js",
         "docker-build": "docker build -t api .",
-        "docker-start": "docker run -dp 4040:4040 api"
+        "docker-start": "docker run -dp 4040:4040 api",
+        "docker-up-db-dev": "cd .. && docker-compose up -d --build db-dev"
     },
     "devDependencies": {
         "@types/chai": "4.3.0",

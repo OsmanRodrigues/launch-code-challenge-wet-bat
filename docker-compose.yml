@@ -19,12 +19,8 @@ services:
             - db
         ports:
             - 4040:4040
-        environment:
-            DB_HOST: db
-            DB_PORT: 5432
-            DB_USER: postgres
-            DB_PASSWORD: postgres
-            DB_NAME: postgres
+        env_file:
+            - ./api/.env.production
         links:
             - db
     ui:
@@ -36,8 +32,19 @@ services:
             - api
         ports:
             - 3000:3000
+        env_file:
+            - ./ui/.env.production
         links:
           - api
+    db-dev:
+        image: postgres:14.1-alpine
+        restart: always
+        env_file:
+            - ./db/.env.development
+        ports:
+        - '5432:5432'
+        volumes:
+        - db:/var/lib/postgresql/data
 volumes:
     db:
         driver: local
