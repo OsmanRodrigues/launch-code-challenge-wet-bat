@@ -1,25 +1,30 @@
 import { salutation } from '@adapters/constants'
-import { config } from '@utils/config'
-import { logger } from '@utils/logger'
+import { config, errorHandler, logger } from '@utils'
 import Koa from 'koa'
 
-export class ServerFacade {
+export class ServerFacade extends Koa {
 
     constructor(
-        private server = new Koa(),
-        private env = config.env
+         private mainConfig = config
     ) {
-
+        super()
     }
 
     run() {
-        this.server.use(async ctx => {
-            ctx.body = { salutation }
-        })
+        const { env } = this.mainConfig
 
-        this.server.listen(Number(this.env?.PORT), this.env?.HOST, undefined, () => {
-            logger.info(`App running at http://${this.env?.HOST}:${this.env?.PORT}`)
-        })
+        this
+            .use(errorHandler.handle)
+            .use(async ctx => {
+                if (ctx.request.url === '/favicon.ico') {
+                    return
+                }
+
+                ctx.body = { salutation }
+            })
+            .listen(Number(env?.PORT), env?.HOST, undefined, () => {
+                logger.info(`App running at http://${env?.HOST}:${env?.PORT}`)
+            })
     }
 
 }
