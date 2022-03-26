@@ -1,8 +1,10 @@
 import { salutation } from '@adapters/constants'
 import { config } from '@utils/config'
+import { logger } from '@utils/logger'
 import Koa from 'koa'
 
 export class ServerFacade {
+
     constructor(
         private server = new Koa(),
         private env = config.env
@@ -16,7 +18,8 @@ export class ServerFacade {
         })
 
         this.server.listen(Number(this.env?.PORT), this.env?.HOST, undefined, () => {
-            console.log(`App running at http://${this.env?.HOST}:${this.env?.PORT}`)
+            logger.info(`App running at http://${this.env?.HOST}:${this.env?.PORT}`)
         })
     }
+
 }

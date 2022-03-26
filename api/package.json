@@ -47,6 +47,8 @@
         "koa": "2.13.4",
         "objection": "3.0.1",
         "pg": "8.7.3",
+        "pino": "7.9.2",
+        "pino-pretty": "7.6",
         "reflect-metadata": "0.1.13",
         "typedi": "0.10.0"
     }
