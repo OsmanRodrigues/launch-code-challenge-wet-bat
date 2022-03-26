@@ -1,0 +1,5 @@
+#!/bin/sh
+. "$(dirname "$0")/_/husky.sh"
+
+yarn lint && yarn test
+cd api && yarn lint && yarn test

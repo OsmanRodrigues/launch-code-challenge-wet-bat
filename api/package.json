@@ -12,7 +12,7 @@
         "dev": "yarn lint && cross-env NODE_ENV=development yarn run-dev-aliases",
         "test": "cross-env NODE_ENV=test mocha -r ts-node/register -r tsconfig-paths/register ./src/test/**/*.ts",
         "test:watch": "cross-env NODE_ENV=test mocha -r ts-node/register -r tsconfig-paths/register --watch --watch-files ./src/**/*.ts,test/*.ts ./src/test/**/*.ts",
-        "prepar-husky": "husky install && npx husky add .husky/pre-commit 'yarn lint && yarn test'",
+        "prepare-husky": "cd .. && husky install api/.husky && npx husky add api/.husky/pre-commit 'cd api && yarn lint && yarn test'",
         "build": "webpack",
         "start-build": "node ./dist/bundle.js",
         "docker-build": "docker build -t api .",
