@@ -1,6 +1,52 @@
 {
-  "name": "api",
-  "version": "1.0.0",
-  "main": "index.js",
-  "license": "MIT"
+    "name": "api",
+    "version": "1.0.0",
+    "main": "src/index.ts",
+    "license": "MIT",
+    "scripts": {
+        "check:types": "yarn tsc --noEmit",
+        "lint": "yarn eslint 'src/**/*.{ts,tsx}' && yarn check:types",
+        "run-dev-aliases": "nodemon -r tsconfig-paths/register ./src/index.ts",
+        "run-prod-aliases": "ts-node -r tsconfig-paths/register ./src/index.ts",
+        "start": "NODE_ENV=production yarn run-prod-aliases",
+        "dev": "yarn lint && cross-env NODE_ENV=development yarn run-dev-aliases",
+        "test": "cross-env NODE_ENV=test mocha -r ts-node/register -r tsconfig-paths/register ./src/test/**/*.ts",
+        "test:watch": "cross-env NODE_ENV=test mocha -r ts-node/register -r tsconfig-paths/register --watch --watch-files ./src/**/*.ts,test/*.ts ./src/test/**/*.ts",
+        "prepar-husky": "husky install && npx husky add .husky/pre-commit 'yarn lint && yarn test'",
+        "build": "webpack",
+        "start-build": "node ./dist/bundle.js",
+        "docker-build": "docker build -t api .",
+        "docker-start": "docker run -dp 4040:4040 api"
+    },
+    "devDependencies": {
+        "@types/chai": "4.3.0",
+        "@types/koa": "2.13.4",
+        "@types/mocha": "9.1.0",
+        "@typescript-eslint/eslint-plugin": "5.13.0",
+        "@typescript-eslint/parser": "5.13.0",
+        "chai": "4.3.6",
+        "cross-env": "7.0.3",
+        "esbuild-loader": "2.18.0",
+        "eslint": "8.10.0",
+        "eslint-config-prettier": "8.5.0",
+        "husky": "7.0.4",
+        "mocha": "9.2.1",
+        "nodemon": "2.0.15",
+        "prettier": "2.5.1",
+        "ts-node": "10.6.0",
+        "tsconfig-paths": "3.13.0",
+        "tsconfig-paths-webpack-plugin": "3.5.2",
+        "typescript": "4.5.5",
+        "webpack": "5.70.0",
+        "webpack-cli": "4.9.2"
+    },
+    "dependencies": {
+        "dotenv": "16.0.0",
+        "knex": "1.0.3",
+        "koa": "2.13.4",
+        "objection": "3.0.1",
+        "pg": "8.7.3",
+        "reflect-metadata": "0.1.13",
+        "typedi": "0.10.0"
+    }
 }
