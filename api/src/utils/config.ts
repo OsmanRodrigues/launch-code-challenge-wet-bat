@@ -1,4 +1,4 @@
-import { config as dotenvConfig } from 'dotenv'
+import { config as dotenvConfig, DotenvParseOutput } from 'dotenv'
 
 class ConfigSingleton {
 
@@ -6,7 +6,7 @@ class ConfigSingleton {
     static rootDir = process.env.PWD
     static env = dotenvConfig({
         path: `${this.rootDir}/.env.${this.currentEnv}`,
-    }).parsed
+    }).parsed as DotenvParseOutput
 
 }
 

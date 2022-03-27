@@ -17,7 +17,9 @@
         "start-build": "node ./dist/bundle.js",
         "docker-build": "docker build -t api .",
         "docker-start": "docker run -dp 4040:4040 api",
-        "docker-up-db-dev": "cd .. && docker-compose up -d --build db-dev"
+        "docker-up-db-dev": "cd .. && docker-compose up -d --build db-dev",
+        "migrate-dev": "cross-env NODE_ENV=development knex migrate:latest",
+        "migrate-down-dev": "cross-env NODE_ENV=development knex migrate:down"
     },
     "devDependencies": {
         "@types/chai": "4.3.0",
