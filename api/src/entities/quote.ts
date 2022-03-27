@@ -1,60 +1,54 @@
 import { randomUUID } from 'crypto'
 import { Model } from 'objection'
+import { AbstractFactory } from './abstract-factory'
 import { QuoteStatus, QuoteTransportationType, TableName } from './constants'
 
 export interface QuoteViewModel {
-    departureLocation: string,
-    destinationLocation: string,
-    departureDate: string,
-    returnDate: string,
+    departureLocation: string | unknown,
+    destinationLocation: string | unknown,
+    departureDate: string | unknown,
+    returnDate: string | unknown,
     peopleCount?: number,
     transportationType?: keyof typeof QuoteTransportationType,
-    peopleContact: string,
+    peopleContact: string | unknown,
     statusCurrent?: keyof typeof QuoteStatus,
-    priceFinal: number,
+    priceFinal: number | unknown,
 }
 
 export interface QuoteDataModel extends QuoteViewModel {
     id?: string,
-    sysId: string
+    sysId: string | unknown
 }
 
-export class Quote extends Model implements QuoteDataModel {
-    sysId = randomUUID()
-    departureLocation
-    destinationLocation
-    departureDate
-    returnDate
-    peopleCount
-    transportationType
-    peopleContact
-    statusCurrent
-    priceFinal
+export class QuoteModelFactory extends Model implements AbstractFactory<QuoteViewModel, QuoteDataModel> {
+    private builtObject: QuoteDataModel = {
+        sysId: null,
+        departureLocation: null,
+        destinationLocation: null,
+        departureDate: null,
+        returnDate: null,
+        peopleCount: 1,
+        transportationType: QuoteTransportationType.bus,
+        peopleContact: null,
+        statusCurrent: QuoteStatus.pending,
+        priceFinal: null
+    }
 
-    constructor({
-        departureLocation,
-        destinationLocation,
-        departureDate,
-        returnDate,
-        peopleCount = 1,
-        transportationType = QuoteTransportationType.bus,
-        peopleContact,
-        statusCurrent = QuoteStatus.pending,
-        priceFinal,
-    }: QuoteViewModel) {
-        super()
-        this.departureLocation = departureLocation
-        this.destinationLocation = destinationLocation
-        this.departureDate = departureDate
-        this.returnDate = returnDate
-        this.peopleCount = peopleCount
-        this.transportationType = transportationType
-        this.peopleContact = peopleContact
-        this.statusCurrent = statusCurrent
-        this.priceFinal = priceFinal
+    build(params: QuoteViewModel): QuoteDataModel {
+        const producedObjectCopy = { ...this.builtObject }
+
+        producedObjectCopy.sysId = randomUUID()
+        Object.keys(params).forEach(key => { producedObjectCopy[key] = params[key] })
+        this.builtObject = producedObjectCopy
+
+        return producedObjectCopy
     }
 
     static get tableName() {
         return TableName.quote
+    }
+
+    get currentBuilt(): QuoteDataModel {
+        return this.builtObject
     }
 }
