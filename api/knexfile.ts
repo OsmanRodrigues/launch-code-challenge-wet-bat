@@ -22,7 +22,7 @@ const config: { [key: string]: Knex.Config } = {
         seeds:{
             directory: './seeds'
         },
-        ...knexSnakeCaseMappers
+        ...knexSnakeCaseMappers()
     },
     production: {
         client: 'postgresql',
@@ -38,7 +38,7 @@ const config: { [key: string]: Knex.Config } = {
         migrations: {
             tableName: 'knex_migrations'
         },
-        ...knexSnakeCaseMappers
+        ...knexSnakeCaseMappers()
     }
 }
 

@@ -19,7 +19,9 @@
         "docker-start": "docker run -dp 4040:4040 api",
         "docker-up-db-dev": "cd .. && docker-compose up -d --build db-dev",
         "migrate-dev": "cross-env NODE_ENV=development knex migrate:latest",
-        "migrate-down-dev": "cross-env NODE_ENV=development knex migrate:down"
+        "migrate-down-dev": "cross-env NODE_ENV=development knex migrate:down",
+        "seed-make-dev": "cross-env NODE_ENV=development knex seed:make dev -x ts",
+        "seed-dev": "cross-env NODE_ENV=development knex seed:run --specific=dev.ts"
     },
     "devDependencies": {
         "@types/chai": "4.3.0",
