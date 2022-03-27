@@ -3,13 +3,13 @@ services:
     db:
         image: postgres:14.1-alpine
         restart: always
-        environment:
-        - POSTGRES_USER=postgres
-        - POSTGRES_PASSWORD=postgres
+        env_file:
+            - ./db/.env.production
         ports:
         - '5432:5432'
         volumes:
         - db:/var/lib/postgresql/data
+        - ./db/init-prod.sql:/docker-entrypoint-initdb.d/create_tables.sql
     api:
         container_name: api
         build:
@@ -17,10 +17,10 @@ services:
         image: api
         depends_on:
             - db
-        ports:
-            - 4040:4040
         env_file:
             - ./api/.env.production
+        ports:
+            - 4040:4040
         links:
             - db
     ui:
@@ -28,12 +28,10 @@ services:
         build:
             context: ./ui
         image: ui
-        depends_on:
-            - api
-        ports:
-            - 3000:3000
         env_file:
             - ./ui/.env.production
+        ports:
+            - 3000:3000
         links:
           - api
     db-dev:
@@ -45,6 +43,7 @@ services:
         - '5432:5432'
         volumes:
         - db:/var/lib/postgresql/data
+        - ./db/init-dev.sql:/docker-entrypoint-initdb.d/create_tables.sql
 volumes:
     db:
         driver: local
