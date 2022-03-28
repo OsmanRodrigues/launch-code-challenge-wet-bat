@@ -21,7 +21,8 @@ export interface QuoteDataModel extends QuoteViewModel {
 }
 
 export class QuoteModelFactory extends Model implements AbstractFactory<QuoteViewModel, QuoteDataModel> {
-    private builtObject: QuoteDataModel = {
+
+    private $builtObject: QuoteDataModel = {
         sysId: null,
         departureLocation: null,
         destinationLocation: null,
@@ -35,13 +36,13 @@ export class QuoteModelFactory extends Model implements AbstractFactory<QuoteVie
     }
 
     build(params: QuoteViewModel): QuoteDataModel {
-        const producedObjectCopy = { ...this.builtObject }
+        const builtObjectCopy = { ...this.$builtObject }
 
-        producedObjectCopy.sysId = randomUUID()
-        Object.keys(params).forEach(key => { producedObjectCopy[key] = params[key] })
-        this.builtObject = producedObjectCopy
+        builtObjectCopy.sysId = randomUUID()
+        Object.keys(params).forEach(key => { builtObjectCopy[key] = params[key] })
+        this.$builtObject = builtObjectCopy
 
-        return producedObjectCopy
+        return builtObjectCopy
     }
 
     static get tableName() {
@@ -49,6 +50,7 @@ export class QuoteModelFactory extends Model implements AbstractFactory<QuoteVie
     }
 
     get currentBuilt(): QuoteDataModel {
-        return this.builtObject
+        return this.$builtObject
     }
+
 }
