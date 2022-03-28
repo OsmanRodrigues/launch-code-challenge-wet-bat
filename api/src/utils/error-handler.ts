@@ -1,5 +1,5 @@
 import { Context } from 'koa'
-import { ForeignKeyViolationError, ValidationError } from 'objection'
+import { ForeignKeyViolationError, NotNullViolationError, ValidationError } from 'objection'
 import Container, { Service } from 'typedi'
 import { ErrorHandlerConstant, HttpErrorConstant, HttpStatusCodeConstant } from './constant'
 import { CustomError } from './custom-error'
@@ -17,7 +17,17 @@ class ErrorHandlerSingleton {
         try {
             await next()
         } catch (err: any) {
+
+
             switch (true) {
+            case err instanceof NotNullViolationError:
+                ctx.status = HttpStatusCodeConstant.BadRequest
+                ctx.body = {
+                    error: ErrorHandlerConstant.NotNullViolationError,
+                    message: `Inconsistent ${err.column} field value.`
+                }
+                this.logError(ctx)
+                break
             case err instanceof ValidationError:
                 ctx.status = HttpStatusCodeConstant.BadRequest
                 ctx.body = {

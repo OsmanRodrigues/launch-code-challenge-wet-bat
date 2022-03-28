@@ -7,18 +7,24 @@ import { ControllerMethod } from './type'
 @Service()
 export class QuoteController {
 
-    constructor(
-        private domain: QuoteDomain
-    ) { }
+    constructor(private domain: QuoteDomain) { }
 
-    getQuotes: ControllerMethod = async (ctx) => {
-        const quotes = await this.domain.getQuotes()
+    create: ControllerMethod = async (ctx) => {
+        const createdQuote = await this.domain.create(ctx.request.body)
+
+        ctx.body = { message: `Quote created successfully. Id: ${createdQuote.id}.` }
+    }
+
+    get: ControllerMethod = async (ctx) => {
+        const quotes = await this.domain.get()
         ctx.body = { quotes }
     }
 
-    getQuoteById: ControllerMethod = async (ctx) => {
+    getById: ControllerMethod = async (ctx) => {
 
-        const quote = await this.domain.getQuoteById(Number(ctx.params.id))
+        const quote = await this.domain.getById(Number(
+            ctx.params.id
+        ))
 
         if (!quote) throw new CustomError(
             'Resgiter not found.',

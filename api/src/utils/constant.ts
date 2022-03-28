@@ -10,5 +10,6 @@ export enum HttpErrorConstant {
 export enum ErrorHandlerConstant {
     ForeignKeyViolationError = 'ForeignKeyViolationError',
     ValidationError = 'ValidationError',
-    NotFoundError = 'NotFoundError'
+    NotFoundError = 'NotFoundError',
+    NotNullViolationError = 'NotNullViolationError'
 }

@@ -1,5 +1,5 @@
 import { Service } from 'typedi'
-import KoaRouter from 'koa-router'
+import KoaRouter from  '@koa/router'
 import { allowedMethods, endpoint } from './constants'
 import { QuoteController } from './quote-controller'
 import { config } from '@utils/config'
@@ -24,8 +24,9 @@ export class RouterFacade extends KoaRouter {
             ctx.body = { salutation: 'hello world' }
         })
         //Api routes
-        this.get(endpoint.quote, this.quoteController.getQuotes)
-        this.get(endpoint.quoteById, this.quoteController.getQuoteById)
+        this.get(endpoint.quote, this.quoteController.get)
+        this.get(endpoint.quoteById, this.quoteController.getById)
+        this.post(endpoint.quote, this.quoteController.create)
     }
 
 }

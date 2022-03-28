@@ -1,1 +1,1 @@
-export type DomainMethod<Return> = (param?: Record<string, any> ) => Promise<Return>
+export type DomainMethod<Param, Return> = (param: Param ) => Promise<Return>
