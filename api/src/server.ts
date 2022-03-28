@@ -1,26 +1,20 @@
-import { salutation } from '@adapters/constants'
-import { QuoteModelFactory } from '@entities'
+import { RouterFacade } from '@adapters'
 import { config, errorHandler, logger } from '@utils'
 import Koa from 'koa'
-import KoaRouter from 'koa-router'
+import { Service } from 'typedi'
 
+@Service()
 export class ServerFacade extends Koa {
 
     constructor(
-        private mainConfig = config,
-        private router = new KoaRouter()
-    ) {
-        super()
-    }
+        private router: RouterFacade,
+        private mainConfig = config
+    ) {super()}
 
-    run() {
+    run = () => {
         const { env } = this.mainConfig
 
-        this.router.get('/quotes', async ctx => {
-            const query = QuoteModelFactory.query()
-
-            ctx.body = { quotes: await query }
-        })
+        this.router.registerRoutes()
 
         this
             .use(errorHandler.handle)
@@ -30,7 +24,7 @@ export class ServerFacade extends Koa {
                     return
                 }
 
-                ctx.body = { salutation }
+                ctx.body = { salutation: 'hello world' }
             })
             .listen(Number(env?.PORT), env?.HOST, undefined, () => {
                 logger.info(`App running at http://${env?.HOST}:${env?.PORT}`)

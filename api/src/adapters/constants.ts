@@ -1,1 +1,3 @@
-export const salutation = 'Hello world'
+export const endpoint = {
+    quote: '/quote'
+}
