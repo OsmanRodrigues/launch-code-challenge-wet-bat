@@ -2,6 +2,7 @@ import { RouterFacade } from '@adapters'
 import { config, errorHandler, logger } from '@utils'
 import Koa from 'koa'
 import Container, { Service } from 'typedi'
+import bodyParser from 'koa-bodyparser'
 
 @Service()
 export class ServerFacade extends Koa {
@@ -18,6 +19,7 @@ export class ServerFacade extends Koa {
 
         this
             .use(errorHandler.handle)
+            .use(bodyParser())
             .use(this.router.routes())
             .use(this.router.allowedMethods())
             .listen(Number(env?.PORT), env?.HOST, undefined, () => {
