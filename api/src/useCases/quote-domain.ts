@@ -1,18 +1,19 @@
-import { QuoteDataModel, QuoteModelFactory } from '@entities'
+import { QuoteModelFactory, quoteViewFields, QuoteViewModel } from '@entities'
 import { Service } from 'typedi'
-import { DomainQueryMethod } from './type'
+import { DomainMethod } from './type'
 
 @Service()
 export class QuoteDomain {
 
-    constructor(private query = QuoteModelFactory.query()) { }
+    getQuotes: DomainMethod<QuoteModelFactory[]> = async () => await QuoteModelFactory.query()
+        .select(quoteViewFields)
 
-    getQuotes: DomainQueryMethod<QuoteModelFactory[]> = async () => await this.query
+    getQuoteById = async (id: number) => {
+        if (!id) throw new Error('getQuoteById param id must be provided')
 
-    getQuoteById = async (param) => {
-        const result = await this.query
-            .select()
-            .where(param)
+        const result = await QuoteModelFactory.query()
+            .select(quoteViewFields)
+            .where({id})
 
         if(result.length) return result[0]
 

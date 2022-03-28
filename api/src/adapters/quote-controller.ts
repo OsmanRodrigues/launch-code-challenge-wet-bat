@@ -17,7 +17,8 @@ export class QuoteController {
     }
 
     getQuoteById: ControllerMethod = async (ctx) => {
-        const quote = await this.domain.getQuoteById(ctx.params)
+
+        const quote = await this.domain.getQuoteById(Number(ctx.params.id))
 
         if (!quote) throw new CustomError(
             'Resgiter not found.',

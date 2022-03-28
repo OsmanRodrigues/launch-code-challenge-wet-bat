@@ -9,3 +9,21 @@ export enum QuoteTransportationType {
 export enum TableName {
     quote = 'quote'
 }
+export const quoteViewFields = [
+    'id',
+    'departureLocation',
+    'destinationLocation',
+    'departureDate',
+    'returnDate',
+    'peopleCount',
+    'transportationType',
+    'peopleContact',
+    'statusCurrent',
+    'priceFinal',
+]
+export const quoteDataFields = [
+    ...quoteViewFields,
+    'sysId',
+    'createdAt',
+    'updatedAt'
+]

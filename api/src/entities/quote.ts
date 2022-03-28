@@ -4,6 +4,7 @@ import { AbstractFactory } from './abstract-factory'
 import { QuoteStatus, QuoteTransportationType, TableName } from './constants'
 
 export interface QuoteViewModel {
+    id?: string,
     departureLocation: string | unknown,
     destinationLocation: string | unknown,
     departureDate: string | unknown,
@@ -16,14 +17,14 @@ export interface QuoteViewModel {
 }
 
 export interface QuoteDataModel extends QuoteViewModel {
-    id?: string,
     sysId: string | unknown
+    updatedAt?: string,
+    createdAt?: string
 }
 
 export class QuoteModelFactory extends Model implements AbstractFactory<QuoteViewModel, QuoteDataModel> {
 
-    private $builtObject: QuoteDataModel = {
-        sysId: null,
+    private $builtObject: QuoteViewModel = {
         departureLocation: null,
         destinationLocation: null,
         departureDate: null,
@@ -36,20 +37,19 @@ export class QuoteModelFactory extends Model implements AbstractFactory<QuoteVie
     }
 
     build(params: QuoteViewModel): QuoteDataModel {
-        const builtObjectCopy = { ...this.$builtObject }
+        const builtDTO = { ...this.$builtObject }
 
-        builtObjectCopy.sysId = randomUUID()
-        Object.keys(params).forEach(key => { builtObjectCopy[key] = params[key] })
-        this.$builtObject = builtObjectCopy
+        Object.keys(params).forEach(key => { builtDTO[key] = params[key] })
+        this.$builtObject = builtDTO
 
-        return builtObjectCopy
+        return Object.assign(builtDTO, { sysId: randomUUID() })
     }
 
     static get tableName() {
         return TableName.quote
     }
 
-    get currentBuilt(): QuoteDataModel {
+    get currentBuilt(): QuoteViewModel {
         return this.$builtObject
     }
 

@@ -1,3 +1,4 @@
+import 'reflect-metadata'
 import type { Knex } from 'knex'
 import { knexSnakeCaseMappers } from 'objection'
 import { config as configUtils } from './src/utils/config'
