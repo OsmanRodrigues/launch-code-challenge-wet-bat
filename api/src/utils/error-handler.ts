@@ -1,5 +1,6 @@
 import { Context } from 'koa'
 import { ForeignKeyViolationError, ValidationError } from 'objection'
+import Container, { Service } from 'typedi'
 import { ErrorHandlerConstant, HttpErrorConstant, HttpStatusCodeConstant } from './constant'
 import { logger } from './logger'
 
@@ -8,9 +9,10 @@ interface ErrorHandlerContext extends Context {
     body: Record<string, any>
 }
 
+@Service()
 class ErrorHandlerSingleton {
 
-    public static async handle(ctx: ErrorHandlerContext, next: ()=> Promise<any>) {
+    public handle = async (ctx: ErrorHandlerContext, next: ()=> Promise<any>) => {
         try {
             await next()
         } catch (err: any) {
@@ -40,12 +42,12 @@ class ErrorHandlerSingleton {
 
             }
 
-            ErrorHandlerSingleton.logError(ctx)
+            this.logError(ctx)
         }
 
     }
 
-    private static logError(ctx: ErrorHandlerContext) {
+    private logError = (ctx: ErrorHandlerContext) => {
         const { body: { error, message, errors } } = ctx
         const getLog = (logName, logTarget) => logTarget ? `${logName}: ${logTarget}` : ''
         const errorLog = getLog('error', error)
@@ -57,4 +59,4 @@ class ErrorHandlerSingleton {
 
 }
 
-export const errorHandler = ErrorHandlerSingleton
+export const errorHandler = Container.get(ErrorHandlerSingleton)

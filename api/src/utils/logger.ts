@@ -1,9 +1,11 @@
 import { pino } from 'pino'
+import Container, { Service } from 'typedi'
 import { config } from './config'
 
+@Service()
 class LoggerSingleton {
 
-    static logger = pino({
+    logger = pino({
         enabled: (!config.env?.LOG_DISABLED),
         transport: {
             target: 'pino-pretty',
@@ -15,4 +17,4 @@ class LoggerSingleton {
 
 }
 
-export const { logger } = LoggerSingleton
+export const { logger } = Container.get(LoggerSingleton)

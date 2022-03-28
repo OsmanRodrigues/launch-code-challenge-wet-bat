@@ -2,7 +2,9 @@ import knex, { Knex } from 'knex'
 import knexfile  from '../../knexfile'
 import { Model } from 'objection'
 import { config as mainConfig, logger } from '@utils'
+import Container, { Service } from 'typedi'
 
+@Service()
 export class DatabaseFacade {
 
     constructor(
@@ -24,3 +26,5 @@ export class DatabaseFacade {
     }
 
 }
+
+export const database = Container.get(DatabaseFacade)

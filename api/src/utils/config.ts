@@ -1,13 +1,15 @@
 import { config as dotenvConfig, DotenvParseOutput } from 'dotenv'
+import Container, { Service } from 'typedi'
 
+@Service()
 class ConfigSingleton {
 
-    static currentEnv = process.env.NODE_ENV
-    static rootDir = process.env.PWD
-    static env = dotenvConfig({
+    currentEnv = process.env.NODE_ENV
+    rootDir = process.env.PWD
+    env = dotenvConfig({
         path: `${this.rootDir}/.env.${this.currentEnv}`,
     }).parsed as DotenvParseOutput
 
 }
 
-export const config = ConfigSingleton
+export const config = Container.get(ConfigSingleton)

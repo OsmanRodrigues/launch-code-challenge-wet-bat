@@ -1,7 +1,7 @@
 import { RouterFacade } from '@adapters'
 import { config, errorHandler, logger } from '@utils'
 import Koa from 'koa'
-import { Service } from 'typedi'
+import Container, { Service } from 'typedi'
 
 @Service()
 export class ServerFacade extends Koa {
@@ -32,3 +32,5 @@ export class ServerFacade extends Koa {
     }
 
 }
+
+export const server = Container.get(ServerFacade)
