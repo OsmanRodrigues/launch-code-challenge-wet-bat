@@ -3,7 +3,8 @@ import Container, { Service } from 'typedi'
 
 @Service()
 class ConfigSingleton {
-    private nodeEnv = {
+
+    private npmEnv = {
         version: process.env.npm_package_version
     }
     currentEnv = process.env.NODE_ENV
@@ -13,8 +14,9 @@ class ConfigSingleton {
     }).parsed as DotenvParseOutput
 
     constructor() {
-        this.env = {...this.env, ...this.nodeEnv} as DotenvParseOutput
+        this.env = {...this.env, ...this.npmEnv} as DotenvParseOutput
     }
+
 }
 
 export const config = Container.get(ConfigSingleton)
