@@ -21,7 +21,7 @@ export class ServerFacade extends Koa {
             .use(this.router.routes())
             .use(this.router.allowedMethods())
             .listen(Number(env?.PORT), env?.HOST, undefined, () => {
-                logger.info(`App running at http://${env?.HOST}:${env?.PORT}`)
+                logger.info(`App running at http://${env?.HOST}:${env?.PORT}${this.router.versionPrefix}`)
             })
     }
 

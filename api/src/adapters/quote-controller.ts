@@ -1,5 +1,6 @@
 import { QuoteDomain } from '@useCases/quote-domain'
 import { Service } from 'typedi'
+import { ControllerMethod } from './type'
 
 @Service()
 export class QuoteController {
@@ -8,9 +9,8 @@ export class QuoteController {
         private domain: QuoteDomain
     ) { }
 
-    getQuotes = async (ctx) => {
+    getQuotes: ControllerMethod = async (ctx) => {
         const quotes = await this.domain.getQuotes()
-
         ctx.body = { quotes }
     }
 

@@ -9,10 +9,11 @@ export class RouterFacade extends KoaRouter {
 
     constructor(
         private quoteController: QuoteController,
+        public versionPrefix = `/v${config.env.version[0]}`
     ) {
         super({
             methods: allowedMethods,
-            prefix: `/v${config.env.version[0]}`
+            prefix: versionPrefix
         })
     }
 
