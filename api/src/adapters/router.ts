@@ -1,18 +1,29 @@
 import { Service } from 'typedi'
 import KoaRouter from 'koa-router'
-import { endpoint as routeEndpoint } from './constants'
+import { allowedMethods, endpoint } from './constants'
 import { QuoteController } from './quote-controller'
+import { config } from '@utils/config'
 
 @Service()
 export class RouterFacade extends KoaRouter {
 
     constructor(
-        private endpoint = routeEndpoint,
         private quoteController: QuoteController,
-    ) {super()}
+    ) {
+        super({
+            methods: allowedMethods,
+            prefix: `/v${config.env.version[0]}`
+        })
+    }
 
     registerRoutes = () => {
-        this.get(this.endpoint.quote, this.quoteController.getQuotes)
+        //Fallbacks to general routes
+        this.get(endpoint.ignore, ()=> null)
+        this.get(endpoint.main, async ctx => {
+            ctx.body = { salutation: 'hello world' }
+        })
+        //Api routes
+        this.get(endpoint.quote, this.quoteController.getQuotes)
     }
 
 }

@@ -19,13 +19,7 @@ export class ServerFacade extends Koa {
         this
             .use(errorHandler.handle)
             .use(this.router.routes())
-            .use(async ctx => {
-                if (ctx.request.url === '/favicon.ico') {
-                    return
-                }
-
-                ctx.body = { salutation: 'hello world' }
-            })
+            .use(this.router.allowedMethods())
             .listen(Number(env?.PORT), env?.HOST, undefined, () => {
                 logger.info(`App running at http://${env?.HOST}:${env?.PORT}`)
             })
