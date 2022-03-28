@@ -40,6 +40,9 @@ const config: webpack.Configuration = {
             fs: false,
             net: false,
         },
+    },
+    externals: {
+        knex: 'commonjs knex'
     }
 }
 
