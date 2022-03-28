@@ -25,6 +25,7 @@ export class RouterFacade extends KoaRouter {
         })
         //Api routes
         this.get(endpoint.quote, this.quoteController.getQuotes)
+        this.get(endpoint.quoteById, this.quoteController.getQuoteById)
     }
 
 }

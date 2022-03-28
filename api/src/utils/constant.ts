@@ -1,5 +1,6 @@
 export enum HttpStatusCodeConstant{
     BadRequest = 400,
+    NotFound = 404,
     Conflict = 409,
     InternalServerError = 500
 }
@@ -8,5 +9,6 @@ export enum HttpErrorConstant {
 }
 export enum ErrorHandlerConstant {
     ForeignKeyViolationError = 'ForeignKeyViolationError',
-    ValidationError = 'ValidationError'
+    ValidationError = 'ValidationError',
+    NotFoundError = 'NotFoundError'
 }

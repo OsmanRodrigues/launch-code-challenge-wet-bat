@@ -2,6 +2,7 @@ import { Context } from 'koa'
 import { ForeignKeyViolationError, ValidationError } from 'objection'
 import Container, { Service } from 'typedi'
 import { ErrorHandlerConstant, HttpErrorConstant, HttpStatusCodeConstant } from './constant'
+import { CustomError } from './custom-error'
 import { logger } from './logger'
 
 interface ErrorHandlerContext extends Context {
@@ -23,12 +24,22 @@ class ErrorHandlerSingleton {
                     error: ErrorHandlerConstant.ValidationError,
                     errors: err.data,
                 }
+                this.logError(ctx)
                 break
 
             case err instanceof ForeignKeyViolationError:
                 ctx.status = HttpStatusCodeConstant.Conflict
                 ctx.body = {
                     error: ErrorHandlerConstant.ForeignKeyViolationError,
+                }
+                this.logError(ctx)
+                break
+
+            case err instanceof CustomError:
+                ctx.status = err.status
+                ctx.body = {
+                    error: err.error,
+                    message: err.message
                 }
                 break
 
@@ -38,13 +49,12 @@ class ErrorHandlerSingleton {
                     error: HttpErrorConstant.InternalServerError,
                     message: err.message || {},
                 }
+                this.logError(ctx)
                 break
 
             }
 
-            this.logError(ctx)
         }
-
     }
 
     private logError = (ctx: ErrorHandlerContext) => {
