@@ -1,1 +1,1 @@
-export const fallback = 'Hello World'
+export * from './global-style'

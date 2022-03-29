@@ -1,1 +1,1 @@
-export const fallback2 = ''
+export * from './typography'
