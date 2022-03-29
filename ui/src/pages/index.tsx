@@ -1,3 +1,4 @@
+import { fallback } from '@atomic/components'
 import type { NextPage } from 'next'
 import Head from 'next/head'
 import Image from 'next/image'
@@ -12,7 +13,7 @@ const Home: NextPage = () => {
       </Head>
 
       <main>
-        <h1>Hello world</h1>
+            <h1>{fallback}</h1>
       </main>
 
     </div>

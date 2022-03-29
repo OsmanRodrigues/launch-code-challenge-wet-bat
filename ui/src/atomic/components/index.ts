@@ -1,1 +1,1 @@
-export const fallback = ''
+export const fallback = 'hello world'
