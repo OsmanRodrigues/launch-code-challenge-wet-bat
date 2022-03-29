@@ -17,6 +17,7 @@
         "start-build": "node ./dist/bundle.js",
         "docker-build": "docker build -t api .",
         "docker-start": "docker run -dp 4040:4040 api",
+        "docker-up-dev": "cd .. && docker-compose up -d --build api",
         "docker-up-db-dev": "cd .. && docker-compose up -d --build db-dev",
         "migrate-dev": "cross-env NODE_ENV=development knex migrate:latest",
         "migrate-down-dev": "cross-env NODE_ENV=development knex migrate:down",
@@ -54,10 +55,6 @@
         "koa": "2.13.4",
         "koa-bodyparser": "4.3",
         "objection": "3.0.1",
-        "pg": "8.7.3",
-        "pino": "7.9.2",
-        "pino-pretty": "7.6",
-        "reflect-metadata": "0.1.13",
-        "typedi": "0.10.0"
+        "pg": "8.7.3"
     }
 }
