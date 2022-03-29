@@ -2,6 +2,7 @@ import { RouterFacade } from '@adapters'
 import { config, errorHandler, logger } from '@utils'
 import Koa from 'koa'
 import bodyParser from 'koa-bodyparser'
+import cors from '@koa/cors'
 
 export class ServerFacade extends Koa {
 
@@ -16,6 +17,7 @@ export class ServerFacade extends Koa {
         this.router.registerRoutes()
 
         this
+            .use(cors())
             .use(errorHandler.handle)
             .use(bodyParser())
             .use(this.router.routes())
