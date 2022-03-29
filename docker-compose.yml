@@ -1,28 +1,37 @@
 version: '3.8'
 services:
-    db:
+    db-prod:
+        container_name: db-prod
         image: postgres:14.1-alpine
-        restart: always
         env_file:
             - ./db/.env.production
+        healthcheck:
+            test: ["CMD-SHELL", "pg_isready -U postgres"]
+            interval: 5s
+            timeout: 5s
+            retries: 10
+        restart: always
         ports:
         - '5432:5432'
         volumes:
-        - db:/var/lib/postgresql/data
-        - ./db/init-prod.sql:/docker-entrypoint-initdb.d/create_tables.sql
+        - db-prod:/var/lib/postgresql/data
     api:
         container_name: api
         build:
             context: ./api
         image: api
         depends_on:
-            - db
+            db-prod:
+                condition: service_healthy
+        command: yarn start-build-prod
         env_file:
             - ./api/.env.production
+        environment:
+            - DB_HOST=db-prod
         ports:
             - 4040:4040
         links:
-            - db
+            - db-prod
     ui:
         container_name: ui
         build:
@@ -32,9 +41,8 @@ services:
             - ./ui/.env.production
         ports:
             - 3000:3000
-        links:
-          - api
     db-dev:
+        container_name: db-dev
         image: postgres:14.1-alpine
         restart: always
         env_file:
@@ -42,8 +50,9 @@ services:
         ports:
         - '5432:5432'
         volumes:
-        - db:/var/lib/postgresql/data
-        - ./db/init-dev.sql:/docker-entrypoint-initdb.d/create_tables.sql
+        - db-dev:/var/lib/postgresql/data
 volumes:
-    db:
+    db-prod:
+        driver: local
+    db-dev:
         driver: local
