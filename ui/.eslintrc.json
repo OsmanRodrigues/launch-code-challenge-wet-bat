@@ -1,3 +1,20 @@
 {
-  "extends": "next/core-web-vitals"
+    "root": true,
+    "parser": "@typescript-eslint/parser",
+    "plugins": ["@typescript-eslint"],
+    "extends": [
+        "next/core-web-vitals",
+        "eslint:recommended",
+        "plugin:@typescript-eslint/recommended",
+        "prettier"
+    ],
+    "rules": {
+        "dot-notation": "off",
+        "indent": "warn",
+        "space-before-function-paren": "off",
+        "no-useless-catch": "warn",
+        "no-useless-constructor": "off",
+        "quotes": ["error", "single"],
+        "semi": ["error", "never"]
+    }
 }
