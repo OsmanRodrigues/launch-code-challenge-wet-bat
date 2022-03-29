@@ -17,7 +17,14 @@ export class ServerFacade extends Koa {
         this.router.registerRoutes()
 
         this
-            .use(cors())
+            .use(
+                cors({
+                    origin: '*',
+                    allowMethods: ['GET', 'POST'],
+                    allowHeaders: ['Content-Type', 'Authorization'],
+                    exposeHeaders: ['Content-Length', 'Date', 'X-Request-Id'],
+                })
+            )
             .use(errorHandler.handle)
             .use(bodyParser())
             .use(this.router.routes())
