@@ -1,4 +1,4 @@
-import { QuoteDomain } from '@useCases/quote-domain'
+import { QuoteDomain } from '@domain/quote-domain'
 import { ErrorHandlerConstant, HttpStatusCodeConstant } from '@utils'
 import { CustomError } from '@utils/custom-error'
 import { ControllerMethod } from './type'
