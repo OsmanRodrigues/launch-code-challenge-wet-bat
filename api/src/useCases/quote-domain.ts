@@ -1,9 +1,7 @@
 import { EntityFactory, Quote, QuoteDataModel, quoteViewFields, QuoteViewModel } from '@entities'
-import { Service } from 'typedi'
 import { DomainMethod } from './type'
 import { randomUUID } from 'crypto'
 
-@Service()
 export class QuoteDomain {
 
     constructor(

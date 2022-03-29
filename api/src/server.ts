@@ -1,14 +1,12 @@
 import { RouterFacade } from '@adapters'
 import { config, errorHandler, logger } from '@utils'
 import Koa from 'koa'
-import Container, { Service } from 'typedi'
 import bodyParser from 'koa-bodyparser'
 
-@Service()
 export class ServerFacade extends Koa {
 
     constructor(
-        private router: RouterFacade,
+        private router = new RouterFacade(),
         private mainConfig = config
     ) {super()}
 
@@ -28,5 +26,3 @@ export class ServerFacade extends Koa {
     }
 
 }
-
-export const server = Container.get(ServerFacade)

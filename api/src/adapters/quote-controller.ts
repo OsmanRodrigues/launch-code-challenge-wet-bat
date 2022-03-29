@@ -1,13 +1,11 @@
 import { QuoteDomain } from '@useCases/quote-domain'
 import { ErrorHandlerConstant, HttpStatusCodeConstant } from '@utils'
 import { CustomError } from '@utils/custom-error'
-import { Service } from 'typedi'
 import { ControllerMethod } from './type'
 
-@Service()
 export class QuoteController {
 
-    constructor(private domain: QuoteDomain) { }
+    constructor(private domain = new QuoteDomain()) { }
 
     create: ControllerMethod = async (ctx) => {
         const createdQuote = await this.domain.create(ctx.request.body)
@@ -34,4 +32,5 @@ export class QuoteController {
 
         ctx.body = quote
     }
+
 }

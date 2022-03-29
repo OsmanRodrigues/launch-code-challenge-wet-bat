@@ -1,4 +1,3 @@
-import 'reflect-metadata'
 import configSpec from '@utils/config.spec'
 import { Suite } from 'mocha'
 

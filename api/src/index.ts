@@ -1,6 +1,5 @@
-import 'reflect-metadata'
-import { database } from '@frameworks/database'
-import { server } from './server'
+import { DatabaseFacade } from '@frameworks/database'
+import { ServerFacade } from './server'
 
-database.setup()
-server.run()
+new DatabaseFacade().setup()
+new ServerFacade().run()

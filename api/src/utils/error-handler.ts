@@ -1,6 +1,5 @@
 import { Context } from 'koa'
 import { ForeignKeyViolationError, NotNullViolationError, ValidationError } from 'objection'
-import Container, { Service } from 'typedi'
 import { ErrorHandlerConstant, HttpErrorConstant, HttpStatusCodeConstant } from './constant'
 import { CustomError } from './custom-error'
 import { logger } from './logger'
@@ -10,15 +9,12 @@ interface ErrorHandlerContext extends Context {
     body: Record<string, any>
 }
 
-@Service()
 class ErrorHandlerSingleton {
 
     public handle = async (ctx: ErrorHandlerContext, next: ()=> Promise<any>) => {
         try {
             await next()
         } catch (err: any) {
-
-
             switch (true) {
             case err instanceof NotNullViolationError:
                 ctx.status = HttpStatusCodeConstant.BadRequest
@@ -79,4 +75,4 @@ class ErrorHandlerSingleton {
 
 }
 
-export const errorHandler = Container.get(ErrorHandlerSingleton)
+export const errorHandler = new ErrorHandlerSingleton()
