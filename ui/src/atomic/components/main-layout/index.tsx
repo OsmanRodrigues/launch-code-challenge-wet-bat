@@ -6,18 +6,18 @@ import { MainNav } from './main-nav'
 export const MainLayout: FC = ({ children: app }) => {
 
     return (
-        <Container fluid>
-            <Row style={{border: '1px solid black'}}>
-                <MainHeader/>
-            </Row>
-            <Row>
-                <Col md={1} style={{border: '1px solid blue'}}>
-                    <MainNav />
-                </Col>
-                <Col style={{border: '1px solid blue'}}>
-                    {app}
-                </Col>
-            </Row>
-        </Container>
+        <>
+            <MainHeader/>
+            <Container fluid>
+                <Row>
+                    <Col md={1} style={{border: '1px solid blue'}}>
+                        <MainNav />
+                    </Col>
+                    <Col style={{border: '1px solid blue'}}>
+                        {app}
+                    </Col>
+                </Row>
+            </Container>
+        </>
     )
 }

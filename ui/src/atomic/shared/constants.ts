@@ -4,8 +4,19 @@ export const typography = {
         fontWeight: 500
     },
     font: {
-        family: 'Roboto'
-    },
+        family: 'Roboto',
+        size: {
+            sm: '0.8rem',
+            md: '1.4rem',
+            lg: '1.6rem',
+            xl: '1.8rem'
+        },
+        weight: {
+            sm: 300,
+            md: 700,
+            lg: 900
+        }
+    }
 }
 export const color = {
     primary: '#5BBFBA',
@@ -17,4 +28,11 @@ export const color = {
     dark: '#050301',
     light: '#f5f5f5',
     gray: '#B9BBB6'
+}
+export const spacing = {
+    padding: {
+        sm: '0.6rem',
+        md: '1.2rem',
+        lg: '1.8rem'
+    }
 }
