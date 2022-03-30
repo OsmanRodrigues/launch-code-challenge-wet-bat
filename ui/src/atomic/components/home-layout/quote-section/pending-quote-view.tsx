@@ -4,54 +4,26 @@ import {
     H2,
     H4,
     Separator,
-    Table,
-    TableBody,
-    TableData,
-    TableHead,
-    TableHeaders,
-    TableRow
 } from '../../../shared'
 import { FC, useEffect } from 'react'
 import { observer } from 'mobx-react-lite'
-import { useGetQuotes } from '@domain'
-
-const tableHeads = ['Id', 'Name','Destination', 'Price']
+import { quoteListStore } from '@domain/quote-domain/quote-store'
+import { PendingQuoteTable } from './pending-quote-table'
 
 export const PendingQuoteView: FC = observer(() => {
-    const [state, getQuotes] = useGetQuotes()
-    const tableData = state.data?.quotesList?.quotes
+    const hasData = !!quoteListStore.quotes?.length
 
     useEffect(() => {
-        getQuotes(undefined, true)
-    }, [getQuotes])
+        quoteListStore.getQuotes(undefined, true)
+    }, [])
 
     return (
         <Card disableInteractivity fluid>
             <Box fluid>
-                <H2 color='secondary'>Pending quotes</H2>
+                <H2 color="secondary">Pending quotes</H2>
                 <Separator outlined />
-                {tableData?.length ? (
-                    <Table>
-                        <TableHeaders>
-                            <TableRow key={'head'}>
-                                {tableHeads.map(headData => (
-                                    <TableHead key={headData}>
-                                        {headData}
-                                    </TableHead>
-                                ))}
-                            </TableRow>
-                        </TableHeaders>
-                        <TableBody>
-                            {tableData.map(data => (
-                                <TableRow key={data.id}>
-                                    <TableData>{data.id}</TableData>
-                                    <TableData>{data.peopleContact}</TableData>
-                                    <TableData>{data.destinationLocation}</TableData>
-                                    <TableData>{data.priceFinal}</TableData>
-                                </TableRow>
-                            ))}
-                        </TableBody>
-                    </Table>
+                {hasData ? (
+                    <PendingQuoteTable />
                 ) : (
                     <H4>No pending quotes info.</H4>
                 )}

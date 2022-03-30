@@ -1,1 +1,1 @@
-export * from './get-quote-list'
+export * from './quote-store'

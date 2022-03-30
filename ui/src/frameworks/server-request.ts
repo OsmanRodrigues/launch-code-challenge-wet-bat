@@ -1,5 +1,3 @@
-import { action, flow, makeAutoObservable, observable } from 'mobx'
-
 enum RequestStatus {
     idle = 'idle',
     loading = 'loading',
@@ -22,52 +20,37 @@ export interface Resolvers<Data> {
     onFail?: (requestError: unknown) => void
 }
 
-type RequesMethod<Data, Body = Record<string, any>> = (
+export type RequesMethod<Data, Body = Record<string, any>> = (
     endpoint?: string,
-    address?: string,
     body?: Body,
     resolvers?: Resolvers<Data>,
     shouldCache?: boolean
-) => void
+) => Promise<RequestState<Data>>
 
 export class ServerRequestFacade<MainData = any | any[]> {
-    private baseUrl: string = process.env.NEXT_PUBLIC_API_URL as string
-    state: RequestState<MainData> = {
-        status: 'idle',
-        lastUpdate: null
-    }
+    constructor(
+        private baseUrl: string = process.env.NEXT_PUBLIC_API_URL as string,
+        public state: RequestState<MainData> = {
+            status: 'idle',
+            lastUpdate: null
+        }
 
-    constructor() {
-        makeAutoObservable(this, {
-            state: observable,
-            get: action,
-            post: action,
-            request: flow
-        })
-    }
+    ) {}
 
-    *request (
+    async request (
         preRequest: Promise<any>,
-        address = '',
         resolvers?: Resolvers<MainData>,
         shouldCache = false
-    ): any {
-
+    ) {
         this.state.status = 'loading'
         if (shouldCache && this.state.lastUpdate) {
-            return
+            return this.state
         }
 
         try {
-            const getResult = yield preRequest
-            const data = yield getResult.json()
-
-            if (address) {
-                const adressedData: any = { [address]: data }
-                this.state.data = { ...this.state.data, ...adressedData }
-            }
-            else this.state.data = data
-
+            const getResult = await preRequest
+            const data = await getResult.json()
+            this.state.data = data
             this.state.lastUpdate = Date.now()
             this.state.status = 'success'
             resolvers?.onSucess?.(data)
@@ -77,22 +60,22 @@ export class ServerRequestFacade<MainData = any | any[]> {
             this.state.status = 'fail'
             resolvers?.onFail?.(err)
         }
+
+        return this.state
     }
 
     get: RequesMethod<MainData> = (
         endpoint,
-        address,
         _,
         resolvers,
         shouldCache
     ) => {
         const url = endpoint ? this.baseUrl + endpoint : this.baseUrl
-        this.request(fetch(url), address, resolvers, shouldCache)
+        return this.request(fetch(url), resolvers, shouldCache)
     }
 
-    post: RequesMethod<MainData> = (
+    post: RequesMethod<MainData> = async (
         endpoint,
-        address,
         body,
         resolvers,
         shouldCache
@@ -105,7 +88,7 @@ export class ServerRequestFacade<MainData = any | any[]> {
                 'Content-Type': 'application/json'
             }
         }
-        this.request(fetch(url, init), address, resolvers, shouldCache)
+        return this.request(fetch(url, init), resolvers, shouldCache)
     }
 
 }
