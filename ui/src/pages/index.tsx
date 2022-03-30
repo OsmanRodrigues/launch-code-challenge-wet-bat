@@ -1,4 +1,5 @@
-import { QuoteSection, Separator } from '@atomic'
+import { QuoteSection } from '@atomic/components/home-layout'
+import { Separator } from '@atomic/shared/layout.org'
 import type { NextPage } from 'next'
 import Head from 'next/head'
 

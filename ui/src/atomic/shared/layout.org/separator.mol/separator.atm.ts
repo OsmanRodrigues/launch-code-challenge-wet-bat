@@ -2,18 +2,19 @@ import styled, { css } from 'styled-components'
 import { border, color, size, spacing } from '../../constants'
 
 export interface SeparatorLayout {
-    vertical?: boolean
-    large?: boolean
-    outlined?: boolean
+    vertical?: boolean,
+    large?: boolean,
+    outlined?: boolean,
+    color?: keyof typeof color;
 }
 
-const verticalSeparatorBaseCss = css`
+const verticalSeparatorBaseCss = css<SeparatorLayout>`
     display: inline-block;
     width: ${size.separator.vertical.md.width};
     height: ${size.separator.vertical.md.height};
     margin: ${spacing.margin.separator.vertical.md};
     *:first-child {
-        border-right: ${border.separator} ${color.darkGray};
+        border-right: ${border.separator} ${props => props.color || color.gray};
         width: 100%;
         height: 100%;
     }
@@ -21,13 +22,13 @@ const verticalSeparatorBaseCss = css`
 const verticalSeparatorLargeCss = css`
     height: ${size.separator.vertical.lg.height};
 `
-const horizontalSeparatorBaseCss = css`
+const horizontalSeparatorBaseCss = css<SeparatorLayout>`
     display: flex;
     justify-content: center;
     align-items: center;
     margin: ${spacing.margin.separator.horizontal.md};
     *:first-child {
-        border-bottom: ${border.separator} ${color.gray};
+        border-bottom: ${border.separator} ${props => props.color || color.gray};
         width: 100%;
     }
 `

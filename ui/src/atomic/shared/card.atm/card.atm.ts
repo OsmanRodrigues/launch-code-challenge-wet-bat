@@ -9,7 +9,7 @@ import {
 } from '../constants'
 
 export interface CardLayout {
-    fluid?: boolean
+    fluid?: boolean,
     disableInteractivity?: boolean,
     isFocused?: boolean
 }

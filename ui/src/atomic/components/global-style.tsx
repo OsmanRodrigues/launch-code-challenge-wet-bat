@@ -1,4 +1,4 @@
-import { color, typography } from '@atomic/shared/constants'
+import { color, typography } from '../shared/constants'
 import { createGlobalStyle } from 'styled-components'
 
 export const GlobalStyle = createGlobalStyle`
