@@ -7,7 +7,7 @@ interface TypographySharedCss {
 
 const typographySharedCss = css<TypographySharedCss>`
     background-color: inherit;
-    color: ${props => color[props.color || 'darkGray']};
+    color: ${props => color[props.color || 'dark']};
 `
 export const H1 = styled.h1`
     ${typographySharedCss}

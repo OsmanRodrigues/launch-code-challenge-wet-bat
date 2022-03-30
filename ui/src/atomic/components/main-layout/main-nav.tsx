@@ -17,7 +17,7 @@ export const MainNav: FC = () => {
             </LinkButton>
             <Footer>
                 <Separator color='darkGray' outlined />
-                <H4>
+                <H4 color='darkGray'>
                     All rights reserved by Wet Bat @Inc.
                 </H4>
             </Footer>

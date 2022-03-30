@@ -11,27 +11,33 @@ import {
     TableHeaders,
     TableRow
 } from '../../../shared'
-import { FC } from 'react'
+import { FC, useEffect } from 'react'
+import { observer } from 'mobx-react-lite'
+import { useGetQuotes } from '@domain'
 
-const tableHeads = ['Id', 'Name', 'Price']
-const tableData = [{
-    id: 1,
-    name: 'Me',
-    price: 150.00
-}]
+const tableHeads = ['Id', 'Name','Destination', 'Price']
 
-export const PendingQuoteView: FC = () => {
+export const PendingQuoteView: FC = observer(() => {
+    const [state, getQuotes] = useGetQuotes()
+    const tableData = state.data?.quotesList?.quotes
+
+    useEffect(() => {
+        getQuotes(undefined, true)
+    }, [getQuotes])
+
     return (
         <Card disableInteractivity fluid>
             <Box fluid>
-                <H2>Pending quotes</H2>
+                <H2 color='secondary'>Pending quotes</H2>
                 <Separator outlined />
-                {tableData.length ?
+                {tableData?.length ? (
                     <Table>
                         <TableHeaders>
                             <TableRow key={'head'}>
                                 {tableHeads.map(headData => (
-                                    <TableHead key={headData}>{headData}</TableHead>
+                                    <TableHead key={headData}>
+                                        {headData}
+                                    </TableHead>
                                 ))}
                             </TableRow>
                         </TableHeaders>
@@ -39,16 +45,17 @@ export const PendingQuoteView: FC = () => {
                             {tableData.map(data => (
                                 <TableRow key={data.id}>
                                     <TableData>{data.id}</TableData>
-                                    <TableData>{data.name}</TableData>
-                                    <TableData>{data.price}</TableData>
+                                    <TableData>{data.peopleContact}</TableData>
+                                    <TableData>{data.destinationLocation}</TableData>
+                                    <TableData>{data.priceFinal}</TableData>
                                 </TableRow>
                             ))}
                         </TableBody>
                     </Table>
-                    :
+                ) : (
                     <H4>No pending quotes info.</H4>
-                }
+                )}
             </Box>
         </Card>
     )
-}
+})

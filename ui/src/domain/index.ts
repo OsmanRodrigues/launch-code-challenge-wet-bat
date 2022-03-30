@@ -1,1 +1,1 @@
-export const fallback = ''
+export * from './quote-domain'
