@@ -10,10 +10,10 @@ export const MainLayout: FC = ({ children: app }) => {
             <MainHeader/>
             <Container fluid>
                 <Row>
-                    <Col md={1} style={{border: '1px solid blue'}}>
+                    <Col sm={2} md={1} style={{padding: '0px'}}>
                         <MainNav />
                     </Col>
-                    <Col style={{border: '1px solid blue'}}>
+                    <Col>
                         {app}
                     </Col>
                 </Row>
