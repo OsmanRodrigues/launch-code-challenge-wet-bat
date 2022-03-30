@@ -29,7 +29,7 @@ type RequesMethod<Data, Body = Record<string, any>> = (
     resolvers?: Resolvers<Data>
 ) => void
 
-export class ServerRequest<MainData = any | any[]> {
+export class ServerRequestFacade<MainData = any | any[]> {
     private baseUrl: string = process.env.NEXT_PUBLIC_API_URL as string
     state: RequestState<MainData> = {
         status: 'idle',
