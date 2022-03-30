@@ -28,9 +28,9 @@ export const color = {
     fail: '#ED632B',
     dark: '#050301',
     light: '#f5f5f5',
-    gray: '#B9BBB6',
-    darkGray: '#999DA0',
-    lightGray: '#D9DDDC'
+    gray: '#D8D8D8',
+    darkGray: '#B6B6BB',
+    lightGray: '#E8E8E8'
 }
 export const spacing = {
     padding: {

@@ -12,6 +12,6 @@ export const GlobalStyle = createGlobalStyle`
         box-sizing: border-box;
         font-family: ${typography.font.family};
         color: ${color.dark};
-        background-color: ${color.light};
+        background-color: ${color.lightGray};
     }
 `

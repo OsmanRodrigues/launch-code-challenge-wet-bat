@@ -16,7 +16,7 @@ export const Footer = styled.footer`
     bottom: 0;
 `
 export const NavBar = styled.nav`
-    background-color: ${color.lightGray};
+    background-color: ${color.gray};
     min-height: 60vh;
     border-radius: ${radius.md};
 `

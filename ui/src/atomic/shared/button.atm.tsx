@@ -10,7 +10,7 @@ interface ButtonSharedCss {
 
 const buttonSharedCss = css<ButtonSharedCss>`
     ${props => props.fluid && 'width: 100%; display: block;'};
-    background-color: ${ props => props.active ? color.gray : color.lightGray};
+    background-color: ${ props => props.active ? color.darkGray : color.gray};
     padding: ${spacing.padding.md};
     font-weight: ${typography.font.weight.lg};
     font-size: ${typography.font.size.md};
