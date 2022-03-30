@@ -17,21 +17,21 @@ interface RequestState<
     error?: Error | null
 }
 
-interface Resolvers {
-    onSucess?: (data: any) => void
+interface Resolvers<Data> {
+    onSucess?: (data: Data) => void
     onFail?: (requestError: unknown) => void
 }
 
-type RequesMethod<Body = Record<string, any>> = (
+type RequesMethod<Data, Body = Record<string, any>> = (
     endpoint?: string,
     address?: string,
     body?: Body,
-    resolvers?: Resolvers
+    resolvers?: Resolvers<Data>
 ) => void
 
-export class ServerRequest {
+export class ServerRequest<MainData = any | any[]> {
     private baseUrl: string = process.env.NEXT_PUBLIC_API_URL as string
-    state: RequestState = {
+    state: RequestState<MainData> = {
         status: 'idle',
         lastStatus: 'idle'
     }
@@ -48,13 +48,16 @@ export class ServerRequest {
     *request (
         preRequest: Promise<any>,
         address = '',
-        resolvers?: Resolvers
+        resolvers?: Resolvers<MainData>
     ): any {
         this.state.status = 'loading'
         try {
             const getResult = yield preRequest
             const data = yield getResult.json()
-            if (address) this.state.data = { ...this.state.data, [address]: data }
+            if (address) {
+                const adressedData: any = { [address]: data }
+                this.state.data = { ...this.state.data, ...adressedData }
+            }
             else this.state.data = data
             this.state.status = 'success'
             resolvers?.onSucess?.(data)
@@ -68,7 +71,7 @@ export class ServerRequest {
         }
     }
 
-    get: RequesMethod = (
+    get: RequesMethod<MainData> = (
         endpoint,
         address,
         _,
@@ -78,7 +81,7 @@ export class ServerRequest {
         this.request(fetch(url), address, resolvers)
     }
 
-    post: RequesMethod = (endpoint, address, body, resolvers) => {
+    post: RequesMethod<MainData> = (endpoint, address, body, resolvers) => {
         const url = endpoint ? this.baseUrl + endpoint : this.baseUrl
         const init: RequestInit = {
             body: JSON.stringify(body),
