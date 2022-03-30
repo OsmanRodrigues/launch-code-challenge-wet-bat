@@ -1,4 +1,4 @@
-import { GlobalStyle } from '@atomic'
+import { GlobalStyle, MainLayout } from '@atomic'
 import type { AppProps } from 'next/app'
 import { setConfiguration } from 'react-grid-system'
 
@@ -8,7 +8,10 @@ function MyApp({ Component, pageProps }: AppProps) {
     return (
         <>
             <GlobalStyle/>
-            <Component {...pageProps} />
+            <MainLayout>
+                <Component {...pageProps} />
+            </MainLayout>
+
         </>
     )
 }
