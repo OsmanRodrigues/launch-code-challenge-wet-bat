@@ -1,18 +1,16 @@
-import { Card } from '../../../shared'
 import { FC } from 'react'
 import { Col, Row } from 'react-grid-system'
 import { PendingQuoteView } from './pending-quote-view'
+import { QuickQuoteView } from './quick-quote-view'
 
 export const QuoteSection: FC = () => {
     return (
         <Row aria-label='quotesSection'>
-            <Col sm={4}>
-                <Card disableInteractivity>
-                    quote form
-                </Card>
+            <Col sm={6}>
+                <QuickQuoteView/>
             </Col>
-            <Col sm={8}>
-                <PendingQuoteView />
+            <Col sm={6}>
+                <PendingQuoteView/>
             </Col>
         </Row>
     )
