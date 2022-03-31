@@ -36,7 +36,10 @@ export const spacing = {
     padding: {
         sm: '0.6rem',
         md: '1.2rem',
-        lg: '1.8rem'
+        lg: '1.8rem',
+        button: {
+            callToAction: '16px 40px'
+        }
     },
     margin: {
         general: {
@@ -55,7 +58,10 @@ export const spacing = {
 }
 export const radius = {
     lg: '8px',
-    md: '4px'
+    md: '4px',
+    button: {
+        callToAction: '28px'
+    }
 }
 export const size = {
     button: {
@@ -94,7 +100,8 @@ export const size = {
 }
 export const border = {
     card: '2px solid',
-    separator: '1px solid'
+    separator: '1px solid',
+    button: '2px solid'
 }
 export const shadow = {
     emphasize: '0px 0px 20px',

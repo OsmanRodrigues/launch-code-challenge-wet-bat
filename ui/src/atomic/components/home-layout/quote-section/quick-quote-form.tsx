@@ -40,7 +40,7 @@ export const QuickQuoteForm: FC = observer(() => {
     }
 
     return (
-        <Form id={formId} onSubmit={handleSubmit(onSubmit)}>
+        <Form autoComplete='off' id={formId} onSubmit={handleSubmit(onSubmit)}>
             <Card fluid>
                 <Box
                     as="fieldset"
@@ -147,7 +147,7 @@ export const QuickQuoteForm: FC = observer(() => {
                     />
                     <Separator vertical />
                     <Box position="center" fluid>
-                        <Button type="submit" form={formId}>
+                        <Button type="submit" typeStyle="callToAction" form={formId}>
                             {buttonSubmit}
                         </Button>
                     </Box>

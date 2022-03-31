@@ -2,7 +2,7 @@ import { QuoteViewFields } from '@entities/constants'
 
 export const quickQuoteFormInfos = {
     formId: 'QuickQuoteForm',
-    buttonSubmit: 'Creaete quote',
+    buttonSubmit: 'Create a quote',
     section: {
         quoteLocations: 'quoteLocations',
         quoteDates: 'quoteDates',
