@@ -13,7 +13,7 @@ export const PendingQuoteView: FC = observer(() => {
     }, [])
 
     return (
-        <QuoteView title="Pending quotes" handleRefresh={quoteStore.getQuotes}>
+        <QuoteView iconMain='Pending' title="Pending quotes" handleRefresh={quoteStore.getQuotes}>
             {hasData ? <PendingQuoteTable /> : <H4>No pending quotes info.</H4>}
         </QuoteView>
     )

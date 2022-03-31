@@ -1,4 +1,4 @@
 export const appRoute = {
     main: '/',
-    quote: '/quote/:id'
+    quotes: '/quotes/:id'
 }

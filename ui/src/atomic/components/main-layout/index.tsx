@@ -1,5 +1,5 @@
 import { FC } from 'react'
-import { Col, Container, Row } from 'react-grid-system'
+import { Container, Row } from 'react-grid-system'
 import { AppPageCol, NavCol } from './main-columns'
 import { MainHeader } from './main-header'
 import { MainNav } from './main-nav'

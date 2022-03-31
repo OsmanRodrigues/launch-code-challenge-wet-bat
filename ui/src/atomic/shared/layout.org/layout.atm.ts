@@ -5,6 +5,7 @@ import { LayoutAlign } from '../types'
 export const Header = styled.header`
     background-color: ${color.secondary};
     height: 4rem;
+    padding: ${spacing.padding.md};
     left: 0;
     right: 0;
     display: flex;

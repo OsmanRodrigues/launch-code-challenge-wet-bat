@@ -53,6 +53,7 @@ const LinkAnchor = styled.a`
     ${buttonSharedCss}
     padding: ${spacing.padding.md};
     background-color: ${props => (props.active ? color.darkGray : color.gray)};
+    color: ${color.secondary};
 
     &:hover {
         background-color: ${color.lightGray};
