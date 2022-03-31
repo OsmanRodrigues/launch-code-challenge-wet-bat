@@ -7,7 +7,7 @@ interface IQuoteView {
 
 export const QuoteView: FC<IQuoteView> = props => {
     return (
-        <Card disableInteractivity fluid>
+        <Card fluid>
             <Box fluid>
                 <H2 color="secondary">{props.title}</H2>
                 <Separator outlined />

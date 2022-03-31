@@ -10,7 +10,7 @@ import {
 
 export interface CardLayout {
     fluid?: boolean,
-    disableInteractivity?: boolean,
+    shouldInteractive?: boolean,
     isFocused?: boolean
 }
 
@@ -23,12 +23,12 @@ export const CardStyled = styled.div<CardLayout>`
     border-radius: ${radius.lg};
     padding: ${spacing.padding.md};
     box-shadow: ${shadow.md} ${color.light};
-    ${({ disableInteractivity, isFocused }) =>
-        !disableInteractivity &&
+    ${({ shouldInteractive, isFocused }) =>
+        shouldInteractive &&
         isFocused &&
         `
     border: ${border.card} ${color.primary};
     box-sizing: border-box;
-    box-shadow: ${shadow.md} ${color.dark};
+    box-shadow: ${shadow.md} ${color.lightGray};
   `}
 `
