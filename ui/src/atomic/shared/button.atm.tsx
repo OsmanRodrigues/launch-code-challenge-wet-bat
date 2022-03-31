@@ -3,7 +3,7 @@ import { FC } from 'react'
 import styled, { css } from 'styled-components'
 import { border, color, radius, spacing, typography } from './constants'
 
-type ButtonType = 'callToAction' | 'icon' | 'submit'
+type ButtonType = 'callToAction' | 'icon'
 
 interface ButtonSharedCss {
     fluid?: boolean,
@@ -34,12 +34,18 @@ const callToActionCss = css<ButtonSharedCss>`
     }
 `
 
+export const iconButtonCss = css`
+    background-color: inherit;
+`
+
 export const Button = styled.button<ButtonSharedCss>`
     ${buttonSharedCss}
     ${({ typeStyle }) =>{
         switch (typeStyle) {
         case 'callToAction':
             return callToActionCss
+        case 'icon':
+            return iconButtonCss
         }
     }}
 `
