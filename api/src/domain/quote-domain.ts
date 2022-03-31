@@ -9,7 +9,6 @@ export class QuoteDomain {
     ) { }
 
     create: DomainMethod<QuoteViewModel, Quote> = async (infos) => {
-        console.log({ infos })
 
         const newQuote = this.quoteFactory.build(
             infos,
