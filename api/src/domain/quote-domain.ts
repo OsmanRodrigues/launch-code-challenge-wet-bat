@@ -9,10 +9,14 @@ export class QuoteDomain {
     ) { }
 
     create: DomainMethod<QuoteViewModel, Quote> = async (infos) => {
+        console.log({ infos })
+
         const newQuote = this.quoteFactory.build(
             infos,
             quote => {
                 quote.sysId = randomUUID()
+                //Simple final price calculation
+                quote.priceFinal = quote?.peopleCount ? quote.peopleCount  * 150 : 150
             }
         )
 
