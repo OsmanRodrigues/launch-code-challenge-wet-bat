@@ -5,12 +5,12 @@
 #### Home
 ![image](https://user-images.githubusercontent.com/55052153/161160205-6ef54314-eed5-4d80-a595-d5dca5b9f18e.png)
 
+### Setup and running
+
 To run this fullstack app locally, you'll need:
  - `Yarn` >= v1.22.5
  - lastest versions of `docker` and `docker compose`
 - `node` >= v16, in order to run the services individually.
-
-### Setup and running
 
 Before all, you'll need make copies of the `.env.default` files in all subdirs (`api`, `db`, `ui`), fill in and renaming them to `env.production`. After that, go to `root dir` and run sequentially:
 
