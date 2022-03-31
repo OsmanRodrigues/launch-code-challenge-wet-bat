@@ -1,5 +1,5 @@
 import { action, computed, makeAutoObservable, observable } from 'mobx'
-import { QuoteDataModel } from '@entities/quote'
+import { QuoteDataModel, QuoteViewModel } from '@entities/quote'
 import { ServerRequestFacade, Resolvers } from '@frameworks/server-request'
 
 export interface GetQuotesData {
@@ -9,7 +9,7 @@ export interface GetQuotesData {
 export class QuoteListStore {
 
     constructor(
-        private request = new ServerRequestFacade<GetQuotesData>(),
+        private request = new ServerRequestFacade(),
         public quotes: QuoteDataModel[] | null = []
     ) {
         makeAutoObservable(this, {
@@ -30,9 +30,11 @@ export class QuoteListStore {
         if(result.data) this.quotes = result.data.quotes
     }
 
-    get pendingQuotes() {
-        console.log(this.request.state.lastUpdate)
+    createQuote = async (quoteData: QuoteViewModel, resolvers?: Resolvers<QuoteDataModel>) => {
+        await this.request.post('/quote', quoteData, resolvers)
+    }
 
+    get pendingQuotes() {
         return this.quotes?.filter(quote => quote.statusCurrent === 'pending')
     }
 

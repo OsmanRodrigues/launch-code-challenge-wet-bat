@@ -1,8 +1,11 @@
 import styled from 'styled-components'
-import { size } from '../../constants'
+import { fieldsetReset, size } from '../../constants'
 import { LayoutPosition } from '../../types'
 
 export interface BoxLayout {
+    as?: any
+    form?: string
+    name?: string
     fluid?: boolean
     horizontal?: boolean
     grow?: number
@@ -17,6 +20,7 @@ export const BoxStyled = styled.div<BoxLayout>`
     ${({ horizontal, position }) =>
         position &&
         `
-    ${horizontal ? 'justify-content' : 'align-self'}: ${position};
-  `}
+        ${horizontal ? 'justify-content' : 'align-self'}: ${position};
+    `}
+    ${({ as }) => as === 'fieldset' && fieldsetReset}
 `

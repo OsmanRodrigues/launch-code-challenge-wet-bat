@@ -101,3 +101,4 @@ export const shadow = {
     lg: ' inset 0px 0px 0px 4px',
     md: 'inset 0px 0px 0px 2px'
 }
+export const fieldsetReset = 'border: 0;padding: 0;margin: 0;min-width: 0;'

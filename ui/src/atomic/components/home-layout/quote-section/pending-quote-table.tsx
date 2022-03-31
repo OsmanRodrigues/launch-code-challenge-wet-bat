@@ -21,7 +21,7 @@ export const PendingQuoteTable = observer(() => (
                     <TableData>{data.id}</TableData>
                     <TableData>{data.peopleContact}</TableData>
                     <TableData>{data.destinationLocation}</TableData>
-                    <TableData>{data.priceFinal}</TableData>
+                    <TableData>{`$ ${data.priceFinal}`}</TableData>
                 </TableRow>
             ))}
         </TableBody>

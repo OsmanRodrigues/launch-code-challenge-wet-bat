@@ -9,9 +9,9 @@ export interface QuoteViewModel {
     priceFinal: number
     peopleCount?: number
     transportationType?: keyof typeof QuoteTransportationType
-    statusCurrent?: keyof typeof QuoteStatus
 }
 
 export interface QuoteDataModel extends QuoteViewModel {
-    id?: number
+    id: number
+    statusCurrent: keyof typeof QuoteStatus
 }

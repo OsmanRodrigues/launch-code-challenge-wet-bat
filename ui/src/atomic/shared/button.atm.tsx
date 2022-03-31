@@ -21,10 +21,10 @@ const buttonSharedCss = css<ButtonSharedCss>`
         background-color: ${color.gray};
     }
 `
+export const Button = styled.button``
 const LinkAnchor = styled.a`
     ${buttonSharedCss}
 `
-
 export const LinkButton: FC<LinkProps&ButtonSharedCss> = ({ children, ...props }) => (
     <Link {...props}>
         <LinkAnchor fluid={props.fluid} active={props.active}>{children}</LinkAnchor>
