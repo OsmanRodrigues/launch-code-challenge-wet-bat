@@ -1,5 +1,10 @@
 # launch-code-challenge-wet-bat
 
+### Views
+
+#### Home
+![image](https://user-images.githubusercontent.com/55052153/161160205-6ef54314-eed5-4d80-a595-d5dca5b9f18e.png)
+
 To run this fullstack app locally, you'll need:
  - `Yarn` >= v1.22.5
  - lastest versions of `docker` and `docker compose`
@@ -29,9 +34,11 @@ Run the command below to stop the app and down the containers (must be very fast
 
 - [DONE] Create quick quote
 - [DONE] Pending quotes visualization
-- [DOING] Quick quote form custom styles
+- [DONE] Quick quote form custom styles
 - [DOING] Pending quote visualization and management
 
 More Complete docs on the way!
 
 Thanks and seeya!
+
+
