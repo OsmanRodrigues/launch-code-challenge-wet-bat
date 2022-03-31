@@ -17,7 +17,7 @@ export interface RequestState<
 
 export interface Resolvers<Data> {
     onSucess?: (data: Data) => void
-    onFail?: (requestError: unknown) => void
+    onFail?: (requestError: any) => void
 }
 
 export type RequesMethod<Data, Body = Record<string, any>> = (
@@ -49,6 +49,9 @@ export class ServerRequestFacade<MainData = any | any[]> {
 
         try {
             const getResult = await preRequest
+
+            if (!getResult.ok || getResult.status >= 400) throw await getResult.json()
+
             const data = await getResult.json()
             this.state.data = data
             this.state.lastUpdate = Date.now()
