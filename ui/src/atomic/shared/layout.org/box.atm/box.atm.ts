@@ -12,15 +12,21 @@ export interface BoxLayout {
     position?: LayoutPosition
 }
 
+const fluidAndGrowErrorMsg = 'No grow and fluid prop at same time in Box component.'
+
 export const BoxStyled = styled.div<BoxLayout>`
+    ${({ grow, fluid}) => {
+        if (grow && fluid) throw new Error(`${fluidAndGrowErrorMsg} ${BoxStyled.toString()}`)
+        return ''
+    }}
+    ${({ as }) => as === 'fieldset' && fieldsetReset}
     width: ${props => props.fluid && size.general.fluid};
     display: flex;
     flex-direction: ${props => (props.horizontal ? 'row' : 'column')};
-    flex-grow: ${props => props.grow || 1};
+    //flex-grow: ${props => props.grow || 1};
     ${({ horizontal, position }) =>
         position &&
         `
         ${horizontal ? 'justify-content' : 'align-self'}: ${position};
     `}
-    ${({ as }) => as === 'fieldset' && fieldsetReset}
 `

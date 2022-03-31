@@ -46,6 +46,7 @@ export const QuickQuoteForm: FC = observer(() => {
                     as="fieldset"
                     form={formId}
                     name={section.quoteLocations}
+                    fluid
                     horizontal
                 >
                     <InputComposed
@@ -73,6 +74,7 @@ export const QuickQuoteForm: FC = observer(() => {
                     as="fieldset"
                     form={formId}
                     name={section.quoteDates}
+                    fluid
                     horizontal
                 >
                     <InputComposed
@@ -102,6 +104,7 @@ export const QuickQuoteForm: FC = observer(() => {
                     as="fieldset"
                     form={formId}
                     name={section.quotePeopleAndTransport}
+                    fluid
                     horizontal
                 >
                     <InputComposed
@@ -130,6 +133,7 @@ export const QuickQuoteForm: FC = observer(() => {
                     as="fieldset"
                     form={formId}
                     name={section.quoteContactAndSubmit}
+                    fluid
                     horizontal
                 >
                     <InputComposed
@@ -142,7 +146,7 @@ export const QuickQuoteForm: FC = observer(() => {
                         required
                     />
                     <Separator vertical />
-                    <Box fluid position="center">
+                    <Box position="center" fluid>
                         <Button type="submit" form={formId}>
                             {buttonSubmit}
                         </Button>

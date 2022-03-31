@@ -1,7 +1,6 @@
 import { H4, Label } from '../typography.atm'
 import { FC, HTMLInputTypeAttribute } from 'react'
-import { Box } from '../layout.org'
-import { Input } from './forms.atm'
+import { Input, InputWrapper } from './forms.atm'
 import { UseFormRegister, FieldError } from 'react-hook-form'
 
 export type IInputComposedOption = {
@@ -14,6 +13,8 @@ export interface IInputComposed {
     name: string
     title: string
     formId?: string
+    grow?: number
+    fluid?: boolean
     required?: boolean
     errors?: Record<string, FieldError>
     options?: IInputComposedOption[]
@@ -27,7 +28,7 @@ export const InputComposed: FC<IInputComposed> = (props) => {
     const isTypeSelect = props.type === 'select'
 
     return (
-        <Box key={props.id} fluid>
+        <InputWrapper key={props.id} grow={props.grow} fluid={!props.grow}>
             <Label htmlFor={props.id}>{props.title}</Label>
             <Input
                 as={isTypeSelect ? props.type : undefined}
@@ -44,6 +45,6 @@ export const InputComposed: FC<IInputComposed> = (props) => {
                 ):null}
             </Input>
             {error ? <H4 color='fail'>{error.type}</H4> : null}
-        </Box>
+        </InputWrapper>
     )
 }
