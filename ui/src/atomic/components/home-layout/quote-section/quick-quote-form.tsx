@@ -1,4 +1,6 @@
-import { Box, Button, Card, Form, IInputComposedOption, InputComposed, Separator } from '../../../shared'
+import {
+    Box, Button, Card, Form, IInputComposedOption, InputComposed, Separator
+} from '../../../shared'
 import { observer } from 'mobx-react-lite'
 import { FC } from 'react'
 import { quickQuoteFormInfos } from './constants'
