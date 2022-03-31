@@ -1,2 +1,2 @@
 export * from './forms.atm'
-export * from './Input'
+export * from './input-mol'

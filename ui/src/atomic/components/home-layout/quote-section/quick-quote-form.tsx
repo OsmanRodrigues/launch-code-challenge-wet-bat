@@ -1,4 +1,6 @@
-import { Box, Button, Card, Form, IInputComposedOption, InputComposed, Separator } from '../../../shared'
+import {
+    Box, Button, Card, Form, IInputComposedOption, InputComposed, Separator
+} from '../../../shared'
 import { observer } from 'mobx-react-lite'
 import { FC } from 'react'
 import { quickQuoteFormInfos } from './constants'
@@ -38,12 +40,13 @@ export const QuickQuoteForm: FC = observer(() => {
     }
 
     return (
-        <Form id={formId} onSubmit={handleSubmit(onSubmit)}>
+        <Form autoComplete='off' id={formId} onSubmit={handleSubmit(onSubmit)}>
             <Card fluid>
                 <Box
                     as="fieldset"
                     form={formId}
                     name={section.quoteLocations}
+                    fluid
                     horizontal
                 >
                     <InputComposed
@@ -71,6 +74,7 @@ export const QuickQuoteForm: FC = observer(() => {
                     as="fieldset"
                     form={formId}
                     name={section.quoteDates}
+                    fluid
                     horizontal
                 >
                     <InputComposed
@@ -100,6 +104,7 @@ export const QuickQuoteForm: FC = observer(() => {
                     as="fieldset"
                     form={formId}
                     name={section.quotePeopleAndTransport}
+                    fluid
                     horizontal
                 >
                     <InputComposed
@@ -128,6 +133,7 @@ export const QuickQuoteForm: FC = observer(() => {
                     as="fieldset"
                     form={formId}
                     name={section.quoteContactAndSubmit}
+                    fluid
                     horizontal
                 >
                     <InputComposed
@@ -140,8 +146,8 @@ export const QuickQuoteForm: FC = observer(() => {
                         required
                     />
                     <Separator vertical />
-                    <Box fluid position="center">
-                        <Button type="submit" form={formId}>
+                    <Box position="center" fluid>
+                        <Button type="submit" typeStyle="callToAction" form={formId}>
                             {buttonSubmit}
                         </Button>
                     </Box>

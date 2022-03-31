@@ -27,4 +27,5 @@ export const BrandLabel = styled.label`
 `
 export const Label = styled.label`
     ${typographySharedCss}
+    color: inherit;
 `

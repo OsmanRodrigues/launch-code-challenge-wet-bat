@@ -1,5 +1,6 @@
 import { FC } from 'react'
-import { Col, Container, Row } from 'react-grid-system'
+import { Container, Row } from 'react-grid-system'
+import { AppPageCol, NavCol } from './main-columns'
 import { MainHeader } from './main-header'
 import { MainNav } from './main-nav'
 
@@ -7,15 +8,15 @@ export const MainLayout: FC = ({ children: app }) => {
 
     return (
         <>
-            <MainHeader/>
+            <MainHeader />
             <Container fluid>
                 <Row>
-                    <Col sm={2} md={1} style={{padding: '0px'}}>
+                    <NavCol sm={2} md={1}>
                         <MainNav />
-                    </Col>
-                    <Col>
+                    </NavCol>
+                    <AppPageCol>
                         {app}
-                    </Col>
+                    </AppPageCol>
                 </Row>
             </Container>
         </>

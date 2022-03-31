@@ -4,7 +4,7 @@ import { QuoteView } from './quote-view'
 
 export const QuickQuoteView: FC = () => {
     return (
-        <QuoteView title='Quick quote'>
+        <QuoteView iconMain={'Fastfoward'} title='Quick quote'>
             <QuickQuoteForm/>
         </QuoteView>
     )
