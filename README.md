@@ -1,12 +1,13 @@
 # launch-code-challenge-wet-bat
 
 To run this fullstack app locally, you'll need:
+- `node` >= v16
  - `Yarn` >= v1.22.5
  - lastest versions of `docker` and `docker compose`
 
 ### Commands
 
-Before all, you'll need make copies of the `.env.default` files in all subdirs (`api`, `db`, `ui`), fill in and renaming them to `env.production`. After that, go to root dir and run sequentially:
+Before all, you'll need make copies of the `.env.default` files in all subdirs (`api`, `db`, `ui`), fill in and renaming them to `env.production`. After that, go to `root dir` and run sequentially:
 
 1. build:
 
