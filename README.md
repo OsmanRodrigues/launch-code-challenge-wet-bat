@@ -5,7 +5,7 @@ To run this fullstack app locally, you'll need:
  - lastest versions of `docker` and `docker compose`
 - `node` >= v16, in order to run the services individually.
 
-### Commands
+### Setup and running
 
 Before all, you'll need make copies of the `.env.default` files in all subdirs (`api`, `db`, `ui`), fill in and renaming them to `env.production`. After that, go to `root dir` and run sequentially:
 
@@ -24,6 +24,14 @@ Run one of the command below and await the start proccess (must be very fast). T
 Run the command below to stop the app and down the containers (must be very fast)
    - `yarn stop`
 
-Complete docs on the way!
+
+### Current features
+
+- [DONE] Create quick quote
+- [DONE] Pending quotes visualization
+- [DOING] Quick quote form custom styles
+- [DOING] Pending quote visualization and management
+
+More Complete docs on the way!
 
 Thanks and seeya!
