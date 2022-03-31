@@ -1,7 +1,7 @@
 import {
     Table, TableHeaders, TableRow, TableHead, TableBody, TableData
 } from '../../../shared'
-import { quoteListStore } from '@domain/quote-domain/quote-store'
+import { quoteStore } from '@domain/quote-domain/quote-store'
 import { observer } from 'mobx-react-lite'
 
 const tableHeads = ['Id', 'Name', 'Destination', 'Price']
@@ -16,7 +16,7 @@ export const PendingQuoteTable = observer(() => (
             </TableRow>
         </TableHeaders>
         <TableBody>
-            {quoteListStore.pendingQuotes?.map(data => (
+            {quoteStore.pendingQuotes?.map(data => (
                 <TableRow key={data.id}>
                     <TableData>{data.id}</TableData>
                     <TableData>{data.peopleContact}</TableData>

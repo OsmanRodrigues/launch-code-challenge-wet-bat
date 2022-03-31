@@ -5,7 +5,7 @@ import { quickQuoteFormInfos } from './constants'
 import { useForm } from 'react-hook-form'
 import { QuoteViewModel } from '@entities/quote'
 import { QuoteTransportationType } from '@entities/constants'
-import { quoteListStore } from '@domain'
+import { quoteStore } from '@domain'
 
 const transportationTypeOptions = Object
     .keys(QuoteTransportationType)
@@ -24,12 +24,12 @@ export const QuickQuoteForm: FC = observer(() => {
             returnDate: new Date(data.returnDate).toISOString()
         }
 
-        quoteListStore.createQuote(newQuote, {
+        quoteStore.createQuote(newQuote, {
             onSucess: () => {
                 const shoouldRefreshList = confirm(
                     'Quote created Successfuly. Refresh the pending quotes list?'
                 )
-                if(shoouldRefreshList) quoteListStore.getQuotes()
+                if(shoouldRefreshList) quoteStore.getQuotes()
             },
             onFail: (err) => {
                 alert(`Create quick quote failed. ${err?.message || '' }`)

@@ -6,7 +6,7 @@ export interface GetQuotesData {
     quotes: QuoteDataModel[]
 }
 
-export class QuoteListStore {
+export class QuoteStore {
 
     constructor(
         private request = new ServerRequestFacade(),
@@ -40,4 +40,4 @@ export class QuoteListStore {
 
 }
 
-export const quoteListStore = new QuoteListStore()
+export const quoteStore = new QuoteStore()
