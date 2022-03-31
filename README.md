@@ -35,7 +35,8 @@ Run the command below to stop the app and down the containers (must be very fast
 - [x] Create quick quote
 - [x] Pending quotes visualization
 - [x] Quick quote form custom styles
-- [] Pending quote visualization and management (in progress)
+- [ ] Pending quote visualization and management (in progress)
+- [ ] Docs updates
 
 More Complete docs on the way!
 
