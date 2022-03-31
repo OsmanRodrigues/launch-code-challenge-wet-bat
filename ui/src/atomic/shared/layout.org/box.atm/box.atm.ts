@@ -10,7 +10,6 @@ export interface BoxLayout {
 }
 
 export const BoxStyled = styled.div<BoxLayout>`
-    background-color: inherit;
     width: ${props => props.fluid && size.general.fluid};
     display: flex;
     flex-direction: ${props => (props.horizontal ? 'row' : 'column')};

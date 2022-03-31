@@ -11,7 +11,6 @@ export const Header = styled.header`
     align-items: center;
 `
 export const Footer = styled.footer`
-    background-color: inherit;
     padding: ${spacing.padding.md};
     position: absolute;
     bottom: 0;
@@ -21,26 +20,22 @@ export const NavBar = styled.nav`
     min-height: 80vh;
     border-radius: ${radius.md};
 `
-
 interface TableLayout {
     align?: LayoutAlign,
     color?: keyof typeof color,
     backgroundColor?: keyof typeof color
 }
-
 const tableSharedCss = css<TableLayout>`
     ${props => props.color && `color:${props.color};`};
     background-color: ${props => props.backgroundColor || 'inherit'};
     text-align: inherit;
 `
-
 export const Table = styled.table`
     ${tableSharedCss}
     text-align: ${props => props.align || 'left'};
 `
 export const TableHeaders = styled.thead`
     ${tableSharedCss}
-
 `
 export const TableBody = styled.tbody`
     ${tableSharedCss}

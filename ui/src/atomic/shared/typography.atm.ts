@@ -4,9 +4,7 @@ import { color, spacing, typography } from './constants'
 interface TypographySharedCss {
     color?: keyof typeof color
 }
-
 const typographySharedCss = css<TypographySharedCss>`
-    background-color: inherit;
     color: ${props => color[props.color || 'dark']};
 `
 export const H1 = styled.h1`
@@ -26,4 +24,7 @@ export const BrandLabel = styled.label`
     font-size: ${typography.font.size.xxl};
     font-weight: ${typography.font.weight.lg};
     padding: 0px ${spacing.padding.md};
+`
+export const Label = styled.label`
+    ${typographySharedCss}
 `
