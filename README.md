@@ -1,9 +1,9 @@
 # launch-code-challenge-wet-bat
 
 To run this fullstack app locally, you'll need:
-- `node` >= v16
  - `Yarn` >= v1.22.5
  - lastest versions of `docker` and `docker compose`
+- `node` >= v16, in order to run the services individually.
 
 ### Commands
 
