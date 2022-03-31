@@ -3,10 +3,8 @@
 FROM node:16.13-alpine
 
 WORKDIR /ui
-COPY package.json .env.production ./
-COPY build ./build
-RUN yarn global add serve
-RUN yarn install --production
-EXPOSE 3000
+COPY . .
+RUN yarn install
+RUN yarn build
 
-CMD npx serve -s build
+EXPOSE 3000

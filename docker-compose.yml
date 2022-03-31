@@ -37,6 +37,7 @@ services:
         build:
             context: ./ui
         image: ui
+        command: yarn start
         env_file:
             - ./ui/.env.production
         ports:

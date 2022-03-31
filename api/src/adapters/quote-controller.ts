@@ -1,4 +1,4 @@
-import { QuoteDomain } from '@useCases/quote-domain'
+import { QuoteDomain } from '@domain/quote-domain'
 import { ErrorHandlerConstant, HttpStatusCodeConstant } from '@utils'
 import { CustomError } from '@utils/custom-error'
 import { ControllerMethod } from './type'
@@ -8,6 +8,16 @@ export class QuoteController {
     constructor(private domain = new QuoteDomain()) { }
 
     create: ControllerMethod = async (ctx) => {
+        const quoteInfos = ctx.request.body
+
+        Object.keys(quoteInfos).map(key => {
+            if (!quoteInfos[key]) throw new CustomError(
+                `Inconsistent ${key} value.`,
+                ErrorHandlerConstant.ValidationError,
+                HttpStatusCodeConstant.BadRequest
+            )
+        })
+
         const createdQuote = await this.domain.create(ctx.request.body)
 
         ctx.body = { message: `Quote created successfully. Id: ${createdQuote.id}.` }

@@ -35,8 +35,8 @@
         "@entities/*":["entities/*"],
         "@frameworks":["frameworks"],
         "@frameworks/*":["frameworks/*"],
-        "@useCases":["useCases"],
-        "@useCases/*":["useCases/*"],
+        "@domain":["domain"],
+        "@domain/*":["domain/*"],
         "@utils":["utils"],
         "@utils/*":["utils/*"]
     },

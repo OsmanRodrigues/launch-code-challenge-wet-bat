@@ -5,9 +5,10 @@
   "license": "MIT",
   "scripts": {
       "start": "docker-compose up db-prod api ui",
+      "start-silent": "docker-compose up -d db-prod api ui",
       "build-db": "docker-compose build db-prod",
       "build-app": "docker-compose build api ui",
       "build": "yarn build-db && yarn build-app",
-      "eject": "docker-compose down"
+      "stop": "docker-compose down"
   }
 }
