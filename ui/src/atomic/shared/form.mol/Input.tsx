@@ -1,6 +1,6 @@
-import { H4, Label } from '../../typography.atm'
+import { H4, Label } from '../typography.atm'
 import { FC, HTMLInputTypeAttribute } from 'react'
-import { Box } from '../../layout.org'
+import { Box } from '../layout.org'
 import { Input } from './forms.atm'
 import { UseFormRegister, FieldError } from 'react-hook-form'
 
