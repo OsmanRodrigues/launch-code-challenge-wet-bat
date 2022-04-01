@@ -1,5 +1,5 @@
 
-import { Footer, H4, Icon, Label, LinkButton, NavBar, Separator } from '../../shared'
+import { Footer, H4, Icon, LinkButton, NavBar, Separator } from '../../shared'
 import { appRoute } from '@utils/constants'
 import { useRouter } from 'next/router'
 import { FC } from 'react'
@@ -11,15 +11,11 @@ export const MainNav: FC = () => {
         <NavBar>
             <LinkButton href={appRoute.main} active={currentRoute === appRoute.main} fluid>
                 <Icon.Home />
-                <Label>
-                        Home
-                </Label>
+                Home
             </LinkButton>
             <LinkButton href={appRoute.quotes} active={currentRoute === appRoute.quotes} fluid>
                 <Icon.Quote />
-                <Label>
-                    Quotes
-                </Label>
+                Quotes
             </LinkButton>
             <Footer>
                 <Separator color='darkGray' outlined />

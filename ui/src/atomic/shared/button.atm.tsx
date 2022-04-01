@@ -54,6 +54,8 @@ const LinkAnchor = styled.a`
     padding: ${spacing.padding.md};
     background-color: ${props => (props.active ? color.darkGray : color.gray)};
     color: ${color.secondary};
+    display: flex;
+    align-items: flex-end;
 
     &:hover {
         background-color: ${color.lightGray};

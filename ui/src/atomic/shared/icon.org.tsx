@@ -12,19 +12,19 @@ export const Icon = {
     Dashboard: styled(Dashboard).attrs({ size: '2.5rem' })`
         color: ${color.light};
         `,
-    Home: styled(Home).attrs({ size: '2rem' })`
+    Home: styled(Home).attrs({ size: '1.8rem' })`
         color: ${color.secondary};
         `,
-    Quote: styled(Dollar).attrs({ size: '2rem' })`
+    Quote: styled(Dollar).attrs({ size: '1.8rem' })`
         color: ${color.secondary};
         `,
-    Refresh: styled(Refresh).attrs({ size: '2rem' })`
+    Refresh: styled(Refresh).attrs({ size: '1.8rem' })`
         color: ${color.darkGray};
     `,
-    Fastfoward: styled(FastForwardCircle).attrs({ size: '2rem' })`
+    Fastfoward: styled(FastForwardCircle).attrs({ size: '1.8rem' })`
         color: ${color.primary};
     `,
-    Pending: styled(Hourglass).attrs({ size: '2rem' })`
+    Pending: styled(Hourglass).attrs({ size: '1.8rem' })`
         color: ${color.primary};
     `,
 }
