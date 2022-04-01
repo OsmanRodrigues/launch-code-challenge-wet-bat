@@ -1,14 +1,14 @@
-import { Card, Box, H2, Separator, Icon, Button } from '../../../shared'
+import { Card, Box, H2, Separator, Icon, Button } from '../../shared'
 import { FC } from 'react'
 import { StyledComponent } from 'styled-components'
 
-interface IQuoteView {
-    title: string,
-    iconMain: keyof typeof Icon,
+interface ICardWithActions {
+    title: string
+    iconMain: keyof typeof Icon
     handleRefresh?: () => void
 }
 
-export const QuoteView: FC<IQuoteView> = props => {
+export const CardWithActions: FC<ICardWithActions> = props => {
     const IconMain: StyledComponent<any, any> = Icon[props.iconMain]
 
     return (
@@ -16,7 +16,7 @@ export const QuoteView: FC<IQuoteView> = props => {
             <Box fluid>
                 <Box horizontal fluid>
                     <Box fluid horizontal>
-                        <IconMain />
+                        <IconMain color='primary' />
                         <H2 color="secondary">{props.title}</H2>
                     </Box>
                     {props.handleRefresh ? (

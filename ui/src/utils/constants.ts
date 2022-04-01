@@ -1,4 +1,15 @@
+export const appName = 'Wet Bat'
 export const appRoute = {
-    main: '/',
-    quotes: '/quotes/:id'
+    home: '/',
+    quotes: '/quotes'
+}
+export const pageData = {
+    home: {
+        title: `${appName} | Home`,
+        description: 'General boards view'
+    },
+    quotes: {
+        title: `${appName} | Quotes`,
+        description: 'Quotes detailed information'
+    }
 }

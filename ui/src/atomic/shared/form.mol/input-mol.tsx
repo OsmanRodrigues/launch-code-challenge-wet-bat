@@ -1,4 +1,4 @@
-import { H4, Label } from '../typography.atm'
+import { Paragraph, Label } from '../typography.atm'
 import { FC, HTMLInputTypeAttribute } from 'react'
 import { Input, InputWrapper } from './forms.atm'
 import { UseFormRegister, FieldError } from 'react-hook-form'
@@ -44,7 +44,7 @@ export const InputComposed: FC<IInputComposed> = (props) => {
                     </option>
                 ):null}
             </Input>
-            {error ? <H4 color='fail'>{error.type}</H4> : null}
+            {error ? <Paragraph color='fail'>{error.type}</Paragraph> : null}
         </InputWrapper>
     )
 }

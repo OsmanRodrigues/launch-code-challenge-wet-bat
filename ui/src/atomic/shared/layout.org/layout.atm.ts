@@ -31,9 +31,14 @@ const tableSharedCss = css<TableLayout>`
     background-color: ${props => props.backgroundColor || 'inherit'};
     text-align: inherit;
 `
+export const TableWrapper = styled.div`
+    max-height: 50vh;
+    overflow: auto;
+`
 export const Table = styled.table`
     ${tableSharedCss}
     text-align: ${props => props.align || 'left'};
+    width: 100%;
 `
 export const TableHeaders = styled.thead`
     ${tableSharedCss}

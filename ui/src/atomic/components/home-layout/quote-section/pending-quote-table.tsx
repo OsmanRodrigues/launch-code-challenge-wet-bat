@@ -1,29 +1,10 @@
-import {
-    Table, TableHeaders, TableRow, TableHead, TableBody, TableData
-} from '../../../shared'
+import { Paragraph } from '@atomic/shared/typography.atm'
 import { quoteStore } from '@domain/quote-domain/quote-store'
 import { observer } from 'mobx-react-lite'
-
-const tableHeads = ['Id', 'Name', 'Destination', 'Price']
+import { QuotesTable } from '../../common-layout/quotes-table'
 
 export const PendingQuoteTable = observer(() => (
-    <Table>
-        <TableHeaders>
-            <TableRow key={'head'}>
-                {tableHeads.map(headData => (
-                    <TableHead key={headData}>{headData}</TableHead>
-                ))}
-            </TableRow>
-        </TableHeaders>
-        <TableBody>
-            {quoteStore.pendingQuotes?.map(data => (
-                <TableRow key={data.id}>
-                    <TableData>{data.id}</TableData>
-                    <TableData>{data.peopleContact}</TableData>
-                    <TableData>{data.destinationLocation}</TableData>
-                    <TableData>{`$ ${data.priceFinal}`}</TableData>
-                </TableRow>
-            ))}
-        </TableBody>
-    </Table>
+    quoteStore.pendingQuotes?.length ?
+        <QuotesTable quotes={quoteStore.pendingQuotes} shouldInteractive/> :
+        <Paragraph>No data.</Paragraph>
 ))

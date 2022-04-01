@@ -20,37 +20,31 @@ export interface Resolvers<Data> {
     onFail?: (requestError: any) => void
 }
 
-export type RequesMethod<Data, Body = Record<string, any>> = (
-    endpoint?: string,
-    body?: Body,
-    resolvers?: Resolvers<Data>,
-    shouldCache?: boolean
-) => Promise<RequestState<Data>>
-
-export class ServerRequestFacade<MainData = any | any[]> {
+export class ServerRequestFacade<MainData = any> {
     constructor(
         private baseUrl: string = process.env.NEXT_PUBLIC_API_URL as string,
         public state: RequestState<MainData> = {
             status: 'idle',
             lastUpdate: null
         }
-
     ) {}
 
-    async request (
+    async request<Data>(
         preRequest: Promise<any>,
-        resolvers?: Resolvers<MainData>,
+        resolvers?: Resolvers<Data|MainData>,
         shouldCache = false
-    ) {
+    ): Promise<RequestState<Data | MainData>> {
         this.state.status = 'loading'
-        if (shouldCache && this.state.lastUpdate) {
+
+        if (shouldCache && !!this.state.lastUpdate) {
             return this.state
         }
 
         try {
             const getResult = await preRequest
 
-            if (!getResult.ok || getResult.status >= 400) throw await getResult.json()
+            if (!getResult.ok || getResult.status >= 400)
+                throw await getResult.json()
 
             const data = await getResult.json()
             this.state.data = data
@@ -67,22 +61,21 @@ export class ServerRequestFacade<MainData = any | any[]> {
         return this.state
     }
 
-    get: RequesMethod<MainData> = (
-        endpoint,
-        _,
-        resolvers,
-        shouldCache
-    ) => {
+    get<ReturnedData = MainData>(
+        endpoint: string,
+        resolvers?: Resolvers<ReturnedData | MainData>,
+        shouldCache?: boolean
+    ): Promise<RequestState<ReturnedData | MainData>> {
         const url = endpoint ? this.baseUrl + endpoint : this.baseUrl
         return this.request(fetch(url), resolvers, shouldCache)
     }
 
-    post: RequesMethod<MainData> = async (
-        endpoint,
-        body,
-        resolvers,
-        shouldCache
-    ) => {
+    post<BodyData, ReturnedData>(
+        endpoint: string,
+        body: BodyData,
+        resolvers?: Resolvers<ReturnedData | MainData>,
+        shouldCache?: boolean
+    ) {
         const url = endpoint ? this.baseUrl + endpoint : this.baseUrl
         const init: RequestInit = {
             body: JSON.stringify(body),
@@ -93,5 +86,4 @@ export class ServerRequestFacade<MainData = any | any[]> {
         }
         return this.request(fetch(url, init), resolvers, shouldCache)
     }
-
 }

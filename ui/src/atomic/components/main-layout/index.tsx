@@ -11,7 +11,7 @@ export const MainLayout: FC = ({ children: app }) => {
             <MainHeader />
             <Container fluid>
                 <Row>
-                    <NavCol sm={2} md={1}>
+                    <NavCol sm={2} md={2} lg={1}>
                         <MainNav />
                     </NavCol>
                     <AppPageCol>

@@ -13,6 +13,7 @@ const verticalSeparatorBaseCss = css<SeparatorLayout>`
     width: ${size.separator.vertical.md.width};
     height: ${size.separator.vertical.md.height};
     margin: ${spacing.margin.separator.vertical.md};
+
     *:first-child {
         border-right: ${border.separator} ${props => props.color || color.gray};
         width: 100%;
@@ -21,12 +22,14 @@ const verticalSeparatorBaseCss = css<SeparatorLayout>`
 `
 const verticalSeparatorLargeCss = css`
     height: ${size.separator.vertical.lg.height};
+    width: ${size.separator.vertical.lg.height};
 `
 const horizontalSeparatorBaseCss = css<SeparatorLayout>`
     display: flex;
     justify-content: center;
     align-items: center;
     margin: ${spacing.margin.separator.horizontal.md};
+
     *:first-child {
         border-bottom: ${border.separator} ${props => props.color || color.gray};
         width: 100%;

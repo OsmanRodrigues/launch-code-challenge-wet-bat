@@ -1,31 +1,38 @@
 
-import { Footer, H4, Icon, Label, LinkButton, NavBar, Separator } from '../../shared'
-import { appRoute } from '@utils/constants'
-import { useRouter } from 'next/router'
 import { FC } from 'react'
+import { useRouter } from 'next/router'
+import { appRoute } from '@utils/constants'
+import { Footer, Paragraph, Icon, LinkButton, NavBar, Separator } from '../../shared'
 
 export const MainNav: FC = () => {
     const { asPath: currentRoute } = useRouter()
 
     return (
         <NavBar>
-            <LinkButton href={appRoute.main} active={currentRoute === appRoute.main} fluid>
+            <LinkButton
+                href={appRoute.home}
+                active={currentRoute === appRoute.home}
+                replace
+                fluid
+            >
                 <Icon.Home />
-                <Label>
-                        Home
-                </Label>
+                Home
             </LinkButton>
-            <LinkButton href={appRoute.quotes} active={currentRoute === appRoute.quotes} fluid>
+            <LinkButton
+                href={`${appRoute.quotes}/[id]`}
+                as={`${appRoute.quotes}/1`}
+                active={currentRoute.startsWith(appRoute.quotes)}
+                replace
+                fluid
+            >
                 <Icon.Quote />
-                <Label>
-                    Quotes
-                </Label>
+                Quotes
             </LinkButton>
             <Footer>
-                <Separator color='darkGray' outlined />
-                <H4 color='darkGray'>
+                <Separator color="darkGray" outlined />
+                <Paragraph color="darkGray">
                     All rights reserved by Wet Bat @Inc.
-                </H4>
+                </Paragraph>
             </Footer>
         </NavBar>
     )

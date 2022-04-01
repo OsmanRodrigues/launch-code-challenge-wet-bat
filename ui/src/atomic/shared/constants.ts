@@ -16,6 +16,10 @@ export const typography = {
             sm: 300,
             md: 700,
             lg: 900
+        },
+        lineHeight: {
+            dl: '1.5rem',
+            p: '1.25rem'
         }
     }
 }
@@ -60,7 +64,8 @@ export const radius = {
     lg: '8px',
     md: '4px',
     button: {
-        callToAction: '28px'
+        callToAction: '28px',
+        icon: '4px'
     }
 }
 export const size = {
@@ -77,6 +82,11 @@ export const size = {
     },
     header: {
         height: '84px'
+    },
+    icon: {
+        sm: '1rem',
+        md: '1.8rem',
+        lg: '2.5rem'
     },
     iconButton: {
         md: '40px'
@@ -96,7 +106,8 @@ export const size = {
                 width: '1px'
             }
         }
-    }
+    },
+    scroll: '6px'
 }
 export const border = {
     card: '2px solid',
