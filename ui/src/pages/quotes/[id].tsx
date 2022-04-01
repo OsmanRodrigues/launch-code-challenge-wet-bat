@@ -1,26 +1,38 @@
 import { GetStaticPaths, GetStaticProps, NextPage } from 'next'
 import { Helmet } from '@atomic/components/main-layout/main-helmet'
 import { pageData } from '@utils'
+import { QuoteDataModel } from '@entities/quote'
+import { IQuotesDetaislSection, QuotesDetaislSection } from '@atomic/components/quotes-layout'
 
 const { quotes: quotesPage } = pageData
 
-const QuotesPage: NextPage = (props) => {
-    console.log('on the page', props)
+const QuotesPage: NextPage<IQuotesDetaislSection> = ({currentQuote, quotes}) =>  (
+    <>
+        <Helmet title={quotesPage.title} description={quotesPage.description} />
+        <QuotesDetaislSection currentQuote={currentQuote} quotes={quotes}  />
+    </>
+)
 
-    return (
-        <>
-            <Helmet title={quotesPage.title} description={quotesPage.description} />
-            <h1>Quotes details page</h1>
-        </>
-    )
-}
 
-export const getStaticProps: GetStaticProps = async (context) => {
-    console.log('on static props', context)
+export const getStaticProps: GetStaticProps<IQuotesDetaislSection> = async (context) => {
+
+    const mockQuote: QuoteDataModel = {
+        id: 1,
+        statusCurrent: 'pending',
+        peopleCount: 5,
+        transportationType: 'bus',
+        departureDate: '2004-10-19 10:23:54+02',
+        departureLocation: 'recife',
+        destinationLocation: 'sao paulo',
+        peopleContact: 'me',
+        priceFinal: 250.2,
+        returnDate: '2004-10-20 10:23:54+02'
+    }
 
     return {
         props: {
-            test: 'test'
+            currentQuote: mockQuote,
+            quotes: [mockQuote]
         }
     }
 }
