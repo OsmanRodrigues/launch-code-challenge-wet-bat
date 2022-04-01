@@ -1,18 +1,24 @@
 import styled, { css } from 'styled-components'
-import { color, size } from './constants'
+import { color, radius, size } from './constants'
 import { Dollar } from '@styled-icons/boxicons-regular/Dollar'
 import { Refresh } from '@styled-icons/boxicons-regular/Refresh'
 import { Hourglass } from '@styled-icons/boxicons-solid/Hourglass'
 import { Dashboard } from '@styled-icons/boxicons-solid/Dashboard'
 import { FastForwardCircle } from '@styled-icons/boxicons-regular/FastForwardCircle'
 import { Home } from '@styled-icons/boxicons-solid/Home'
+import { Show } from '@styled-icons/boxicons-regular/Show'
 
 export interface IconSharedCss {
     color?: keyof typeof color
 }
 
 const iconSharedCss = css<IconSharedCss>`
-    color: ${props => props.color ? color[props.color] : 'inherit'}
+    color: ${props => props.color ? color[props.color] : 'inherit'};
+
+    &:hover {
+        background-color: ${color.darkGray};
+        border-radius: ${radius.button.icon};
+    }
 `
 
 export const Icon = {
@@ -34,4 +40,7 @@ export const Icon = {
     Pending: styled(Hourglass).attrs({ size: size.icon.md })`
         ${iconSharedCss}
     `,
+    Show: styled(Show).attrs({ size: size.icon.sm })`
+        ${iconSharedCss}
+    `
 }

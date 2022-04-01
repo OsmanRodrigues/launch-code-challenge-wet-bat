@@ -5,6 +5,6 @@ import { QuotesTable } from '../../common-layout/quotes-table'
 
 export const PendingQuoteTable = observer(() => (
     quoteStore.pendingQuotes?.length ?
-        <QuotesTable quotes={quoteStore.pendingQuotes} /> :
+        <QuotesTable quotes={quoteStore.pendingQuotes} shouldInteractive/> :
         <Paragraph>No data.</Paragraph>
 ))
