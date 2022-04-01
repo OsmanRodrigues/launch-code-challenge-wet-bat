@@ -16,6 +16,10 @@ export const typography = {
             sm: 300,
             md: 700,
             lg: 900
+        },
+        lineHeight: {
+            dl: '1.5rem',
+            p: '1.25rem'
         }
     }
 }
