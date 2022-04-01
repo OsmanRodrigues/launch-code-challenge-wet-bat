@@ -3,7 +3,7 @@ import { Helmet } from '@atomic/components/main-layout/main-helmet'
 import { pageData } from '@utils'
 import type { NextPage } from 'next'
 
-const { main: homePage } = pageData
+const { home: homePage } = pageData
 
 const Home: NextPage = () => {
 

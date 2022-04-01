@@ -9,19 +9,25 @@ export const MainNav: FC = () => {
 
     return (
         <NavBar>
-            <LinkButton href={appRoute.main} active={currentRoute === appRoute.main} fluid>
+            <LinkButton
+                href={appRoute.home}
+                active={currentRoute.startsWith(appRoute.home)}
+                fluid
+            >
                 <Icon.Home />
                 Home
             </LinkButton>
-            <LinkButton href={appRoute.quotes} active={currentRoute === appRoute.quotes} fluid>
+            <LinkButton
+                href={appRoute.quotes}
+                active={currentRoute.startsWith(appRoute.quotes)}
+                fluid
+            >
                 <Icon.Quote />
                 Quotes
             </LinkButton>
             <Footer>
-                <Separator color='darkGray' outlined />
-                <H4 color='darkGray'>
-                    All rights reserved by Wet Bat @Inc.
-                </H4>
+                <Separator color="darkGray" outlined />
+                <H4 color="darkGray">All rights reserved by Wet Bat @Inc.</H4>
             </Footer>
         </NavBar>
     )
