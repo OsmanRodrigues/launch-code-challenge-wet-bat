@@ -3,7 +3,10 @@
 ### Views
 
 #### Home
-![image](https://user-images.githubusercontent.com/55052153/161160205-6ef54314-eed5-4d80-a595-d5dca5b9f18e.png)
+![image](https://user-images.githubusercontent.com/55052153/161351588-e50992be-02fa-4a1a-9c55-970bfb7d002e.png)
+
+### Quotes details
+![image](https://user-images.githubusercontent.com/55052153/161351655-73eaf958-46a0-4516-8b5e-2fb63bb25f0f.png)
 
 ### Setup and running
 
@@ -35,8 +38,8 @@ Run the command below to stop the app and down the containers (must be very fast
 - [x] Create quick quote
 - [x] Pending quotes visualization
 - [x] Quick quote form custom styles
-- [ ] Pending quote visualization and management (in progress)
-- [ ] Docs updates
+- [x] Pending quote visualization
+- [ ] Docs updates (in progress)
 
 More Complete docs on the way!
 
