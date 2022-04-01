@@ -1,6 +1,6 @@
 import styled from 'styled-components'
 import { Col } from 'react-grid-system'
-import { spacing } from '@atomic/shared/constants'
+import { spacing } from '../../shared/constants'
 
 export const NavCol = styled(Col)`
     padding: 0px !important;
