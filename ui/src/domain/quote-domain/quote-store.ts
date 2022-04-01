@@ -8,9 +8,10 @@ export interface GetQuotesData {
 
 export class QuoteStore {
     constructor(
+        private isSSR = !!process.env.SSR,
         private request = new ServerRequestFacade(),
         private selectedQuoteMap: Record<number, QuoteDataModel> = {},
-        public quotes: QuoteDataModel[] | [] = [],
+        public quotes: QuoteDataModel[] | null = null,
         public currentQuote: QuoteDataModel | null = null,
     ) {
         makeAutoObservable(this, {
@@ -46,8 +47,14 @@ export class QuoteStore {
             this.currentQuote = quoteInCache
             return
         }
+        const shouldGetList = this.isSSR && !this.quotes
 
-        const quoteInList = this.quotes.find(quote => quote.id === quoteId)
+        if (shouldGetList) await this.getQuotes({
+            onFail: (err) => resolvers?.onFail?.(err)
+        }, true)
+
+
+        const quoteInList = this.quotes ? this.quotes.find(quote => quote.id === quoteId) : null
 
         if (quoteInList) {
             this.selectedQuoteMap[quoteId] = quoteInList
@@ -55,9 +62,10 @@ export class QuoteStore {
             return
         }
 
-        const {data: quote} = await this.request.get<QuoteDataModel>(
+        const { data: quote } = await this.request.get<QuoteDataModel>(
             `/quote/${quoteId}`, resolvers
         )
+
         this.selectedQuoteMap[quoteId] = quote
         this.currentQuote = quote
     }
@@ -73,9 +81,6 @@ export class QuoteStore {
         return this.quotes?.filter(quote => quote.statusCurrent === 'pending')
     }
 
-    get selectedQuote() {
-        return this.currentQuote
-    }
 }
 
 export const quoteStore = new QuoteStore()

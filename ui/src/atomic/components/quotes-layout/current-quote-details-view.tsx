@@ -1,18 +1,32 @@
+import { FC, useContext } from 'react'
 import { Paragraph } from '@atomic/shared'
 import { QuoteDataModel } from '@entities/quote'
-import { FC } from 'react'
-import { CardWithActions } from '../common-layout'
+import { QuotesPageContext } from 'pages/quotes/[id]'
 import { CurrentQuoteDetailsCard } from './current-quote-details-card'
+import { CardWithActions } from '../common-layout'
 
 interface ICurrentQuoteDetailsView {
-    quote: QuoteDataModel
+    quote?: QuoteDataModel
 }
 
-export const CurrentQuoteDetailsView: FC<ICurrentQuoteDetailsView> = ({ quote }) => (
-    <CardWithActions iconMain="Quote" title={`Quote ID: ${quote?.id || ''}`}>
-        {quote ? <CurrentQuoteDetailsCard quote={quote} /> :
-            <Paragraph>No detailed data. Select one in all quotes</Paragraph>
-        }
-    </CardWithActions>
-)
+
+export const CurrentQuoteDetailsView: FC<ICurrentQuoteDetailsView> = () => {
+    const { currentQuote, error } = useContext(QuotesPageContext)
+
+    const hasError = error?.onGetCurrentQuote
+
+    return (
+        <CardWithActions iconMain="Quote" title={`Quote ID: ${currentQuote?.id || ''}`}>
+            {hasError ?
+                <Paragraph>
+                    {error.onGetCurrentQuote}
+                </Paragraph> :
+                currentQuote ?
+                    <CurrentQuoteDetailsCard quote={currentQuote} /> :
+                    <Paragraph> No detailed data. Select one in all quotes </Paragraph>
+            }
+
+        </CardWithActions>
+    )
+}
 

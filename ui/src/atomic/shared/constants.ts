@@ -64,7 +64,8 @@ export const radius = {
     lg: '8px',
     md: '4px',
     button: {
-        callToAction: '28px'
+        callToAction: '28px',
+        icon: '4px'
     }
 }
 export const size = {
@@ -83,6 +84,7 @@ export const size = {
         height: '84px'
     },
     icon: {
+        sm: '1rem',
         md: '1.8rem',
         lg: '2.5rem'
     },
@@ -104,7 +106,8 @@ export const size = {
                 width: '1px'
             }
         }
-    }
+    },
+    scroll: '6px'
 }
 export const border = {
     card: '2px solid',

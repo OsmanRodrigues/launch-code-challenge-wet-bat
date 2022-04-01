@@ -35,7 +35,8 @@ export class ServerRequestFacade<MainData = any> {
         shouldCache = false
     ): Promise<RequestState<Data | MainData>> {
         this.state.status = 'loading'
-        if (shouldCache && this.state.lastUpdate) {
+
+        if (shouldCache && !!this.state.lastUpdate) {
             return this.state
         }
 
