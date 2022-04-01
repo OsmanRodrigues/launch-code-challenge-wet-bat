@@ -6,5 +6,5 @@ export const NavCol = styled(Col)`
     padding: 0px !important;
 `
 export const AppPageCol = styled(Col)`
-   padding: ${spacing.padding.sm} ${spacing.padding.lg} !important;
+   padding: ${spacing.padding.md} ${spacing.padding.lg} !important;
 `

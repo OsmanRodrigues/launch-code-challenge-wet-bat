@@ -1,5 +1,4 @@
 import { QuoteSection } from '@atomic/components/home-layout'
-import { Separator } from '@atomic/shared/layout.org'
 import type { NextPage } from 'next'
 import Head from 'next/head'
 
@@ -15,7 +14,6 @@ const Home: NextPage = () => {
                 />
                 <link rel="icon" href="/favicon.ico" />
             </Head>
-            <Separator large />
             <QuoteSection />
         </>
     )
