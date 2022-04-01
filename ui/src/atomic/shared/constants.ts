@@ -78,6 +78,10 @@ export const size = {
     header: {
         height: '84px'
     },
+    icon: {
+        md: '1.8rem',
+        lg: '2.5rem'
+    },
     iconButton: {
         md: '40px'
     },
