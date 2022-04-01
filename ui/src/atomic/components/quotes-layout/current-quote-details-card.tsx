@@ -29,7 +29,7 @@ export const CurrentQuoteDetailsCard: FC<ICurrentQuoteDetailsCard> = ({ quote })
         <Box horizontal fluid>
             <DT isBolded>departure:</DT>
             <Separator vertical />
-            <DD>{quote.departureDate}</DD>
+            <DD>{new Date(quote.departureDate).toUTCString()}</DD>
             <Separator vertical large />
             <DT isBolded>location:</DT>
             <Separator vertical />
@@ -38,7 +38,7 @@ export const CurrentQuoteDetailsCard: FC<ICurrentQuoteDetailsCard> = ({ quote })
         <Box horizontal fluid>
             <DT isBolded>return:</DT>
             <Separator vertical />
-            <DD>{quote.returnDate}</DD>
+            <DD>{new Date(quote.returnDate).toUTCString()}</DD>
             <Separator vertical large />
             <DT isBolded>location:</DT>
             <Separator vertical />
