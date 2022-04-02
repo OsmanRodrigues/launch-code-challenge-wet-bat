@@ -58,7 +58,7 @@ Wet Bat is a web app that aims users who works in travel companies which wants g
 This section give us a visual percepetion of main database entity and their properties.
 
 <div style="display: flex; justify-content: center;">
-<img src="./docs/assets/wetbat-database.png" style="border-radius: 8px;"/>
+    <img src="./docs/assets/wetbat-database.png" style="border-radius: 8px;"/>
 </div>
 
 ### Assets
@@ -66,7 +66,7 @@ This section give us a visual percepetion of main database entity and their prop
 This app operations is distributed through these assets below.
 
 <div style="display: flex; justify-content: center;">
-<img src="./docs/assets/wetbat-assets.png" style="border-radius: 8px;"/>
+    <img src="./docs/assets/wetbat-assets.png" style="border-radius: 8px;"/>
 </div>
 
 ### Architecture
@@ -74,7 +74,7 @@ This app operations is distributed through these assets below.
 All the assets, excepts database, are based in Clean Architecture, following the Dependency Rule: <i>"source code dependencies can only point inwards"<i>.
 
 <div style="display: flex; justify-content: center;">
-<img src="https://blog.cleancoder.com/uncle-bob/images/2012-08-13-the-clean-architecture/CleanArchitecture.jpg" style="border-radius: 8px;" />
+    <img src="https://blog.cleancoder.com/uncle-bob/images/2012-08-13-the-clean-architecture/CleanArchitecture.jpg" style="border-radius: 8px;" />
 </div>
 
 ### More docs
