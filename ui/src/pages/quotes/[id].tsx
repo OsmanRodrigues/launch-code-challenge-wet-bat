@@ -52,8 +52,8 @@ export const getStaticProps: GetStaticProps<
 
     return {
         props: {
-            currentQuote: quoteStore.currentQuote,
-            quotes: quoteStore.quotes,
+            currentQuote: quoteStore.currentQuote || null,
+            quotes: quoteStore.quotes || null,
             error: requestError
         }
     }
