@@ -1,14 +1,15 @@
 # launch-code-challenge-wet-bat
 
-### Views
+## Views
 
-#### Home
+### Home
 ![image](https://user-images.githubusercontent.com/55052153/161351588-e50992be-02fa-4a1a-9c55-970bfb7d002e.png)
 
-### Quotes details
+## Quotes details
 ![image](https://user-images.githubusercontent.com/55052153/161351655-73eaf958-46a0-4516-8b5e-2fb63bb25f0f.png)
 
-### Setup and running
+
+## Setup and running
 
 To run this fullstack app locally, you'll need:
  - `Yarn` >= v1.22.5
@@ -33,7 +34,7 @@ Run the command below to stop the app and down the containers (must be very fast
    - `yarn stop`
 
 
-### Current features
+## Current features
 
 - [x] Create quick quote
 - [x] Pending quotes visualization
@@ -41,8 +42,40 @@ Run the command below to stop the app and down the containers (must be very fast
 - [x] Pending quote visualization
 - [ ] Docs updates (in progress)
 
-More Complete docs on the way!
 
-Thanks and seeya!
+## Foundations
+
+### Business
+
+Wet Bat is a web app that aims users who works in travel companies which wants get and manage quick quotes.
+
+### Database
+
+This section give us a visual percepetion of main database entity and their properties.
+
+<img src="./docs/assets/wetbat-database.png" style="border-radius: 8px;"/>
+
+### Assets
+
+This app operations is distributed through these assets below.
+
+<img src="./docs/assets/wetbat-assets.png" style="border-radius: 8px;"/>
+
+### Architecture
+
+All the assets, excepts database, are based in Clean Architecture, following the Dependency Rule: <i>"source code dependencies can only point inwards"<i>.
+
+<img src="https://blog.cleancoder.com/uncle-bob/images/2012-08-13-the-clean-architecture/CleanArchitecture.jpg" style="border-radius: 8px;" />
+
+
+More docs
+
+Assets:
+<div>
+<a href="./api/README.md">api</a>
+<div>
+<div>
+<a href="./ui/README.md">ui</a>
+<div>
 
 
