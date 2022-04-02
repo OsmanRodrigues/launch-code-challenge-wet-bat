@@ -1,5 +1,9 @@
 # launch-code-challenge-wet-bat
 
+### More docs
+
+<a href="./api/README.md">api</a> | <a href="./ui/README.md">ui</a>
+
 ## Views
 
 ### Home
@@ -40,7 +44,7 @@ Run the command below to stop the app and down the containers (must be very fast
 - [x] Pending quotes visualization
 - [x] Quick quote form custom styles
 - [x] Pending quote visualization
-- [ ] Docs updates (in progress)
+- [x] Docs updates (v1)
 
 
 ## Foundations
@@ -68,14 +72,9 @@ All the assets, excepts database, are based in Clean Architecture, following the
 <img src="https://blog.cleancoder.com/uncle-bob/images/2012-08-13-the-clean-architecture/CleanArchitecture.jpg" style="border-radius: 8px;" />
 
 
-More docs
+### More docs
 
-Assets:
-<div>
-<a href="./api/README.md">api</a>
-<div>
-<div>
-<a href="./ui/README.md">ui</a>
-<div>
+<a href="./api/README.md">api</a> | <a href="./ui/README.md">ui</a>
+
 
 
