@@ -11,7 +11,7 @@ export class QuoteStore {
         private isSSR = !!process.env.SSR,
         private request = new ServerRequestFacade(),
         private selectedQuoteMap: Record<number, QuoteDataModel> = {},
-        public quotes: QuoteDataModel[] | null = null,
+        public quotes: QuoteDataModel[] = [],
         public currentQuote: QuoteDataModel | null = null,
     ) {
         makeAutoObservable(this, {
@@ -20,7 +20,8 @@ export class QuoteStore {
             getQuotes: action,
             getQuoteById: action,
             createQuote: action,
-            pendingQuotes: computed
+            pendingQuotes: computed,
+            //currentQuotes: computed
         })
     }
 
@@ -80,6 +81,10 @@ export class QuoteStore {
     get pendingQuotes() {
         return this.quotes?.filter(quote => quote.statusCurrent === 'pending')
     }
+
+    /* get currentQuotes() {
+        return this.quotes
+    } */
 
 }
 
