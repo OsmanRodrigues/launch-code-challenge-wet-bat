@@ -6,8 +6,8 @@ import { Paragraph } from '../../shared'
 
 export const AllQuotesView: FC = () => {
     const [revalidateError, setRevalidateError] = useState<{message?: string}|null>(null)
-    const { quotes, error: quotesTableError } = useContext(QuotesPageContext)
-    const hasTableError = quotesTableError.onGetQuotes
+    const { quotes, error } = useContext(QuotesPageContext)
+    const hasTableError = error?.onGetQuotes
     const { revalidate } = useRevalidateISR({
         onFail: () => setRevalidateError({
             message: 'Failed to refresh list.'
@@ -29,7 +29,7 @@ export const AllQuotesView: FC = () => {
                 <Paragraph color="fail">{revalidateError.message}</Paragraph>
             ) : null}
             {hasTableError ?
-                <Paragraph color="fail">{quotesTableError.onGetQuotes}</Paragraph> :
+                <Paragraph color="fail">{error?.onGetQuotes}</Paragraph> :
                 <QuotesTable
                     quotes={quotes}
                     fields={['Id', 'Name']}

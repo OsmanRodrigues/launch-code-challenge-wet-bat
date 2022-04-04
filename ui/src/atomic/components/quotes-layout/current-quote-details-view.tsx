@@ -18,7 +18,7 @@ export const CurrentQuoteDetailsView: FC<ICurrentQuoteDetailsView> = () => {
     return (
         <CardWithActions iconMain="Quote" title={`Quote ID: ${currentQuote?.id || ''}`}>
             {hasError ?
-                <Paragraph color='fail'>
+                <Paragraph>
                     {error.onGetCurrentQuote}
                 </Paragraph> :
                 currentQuote ?
