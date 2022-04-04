@@ -1,3 +1,6 @@
+import { FC } from 'react'
+import { observer } from 'mobx-react-lite'
+import { useRouter } from 'next/router'
 import {
     TableHeaders,
     TableRow,
@@ -10,11 +13,8 @@ import {
     TableWrapper,
     Paragraph
 } from '../../shared'
-import { FC } from 'react'
 import { QuoteDataModel } from '@entities/quote'
-import { useRouter } from 'next/router'
-import { appRoute } from '@utils'
-import { observer } from 'mobx-react-lite'
+import { appRoute } from '@utils/constants'
 import { QuoteStore, quoteStore } from '@domain/quote-domain/quote-store'
 
 export enum QuotesTableFilter {

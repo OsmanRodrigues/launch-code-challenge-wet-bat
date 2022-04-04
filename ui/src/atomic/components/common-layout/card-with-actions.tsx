@@ -1,6 +1,6 @@
-import { Card, Box, H2, Separator, Icon, Button } from '../../shared'
 import { FC } from 'react'
 import { StyledComponent } from 'styled-components'
+import { Card, Box, H2, Separator, Icon, Button } from '../../shared'
 
 interface ICardWithActions {
     title: string

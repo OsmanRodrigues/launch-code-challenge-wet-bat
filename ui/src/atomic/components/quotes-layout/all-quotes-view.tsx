@@ -1,8 +1,8 @@
 import { FC, useContext, useState } from 'react'
 import { QuotesPageContext } from 'pages/quotes/[id]'
 import { CardWithActions, QuotesTable } from '../common-layout'
-import { useRevalidateISR } from '@atomic/hooks/revalidate-hook'
-import { Paragraph } from '@atomic/shared'
+import { useRevalidateISR } from '../../hooks/revalidate-hook'
+import { Paragraph } from '../../shared'
 
 export const AllQuotesView: FC = () => {
     const [revalidateError, setRevalidateError] = useState<{message?: string}|null>(null)

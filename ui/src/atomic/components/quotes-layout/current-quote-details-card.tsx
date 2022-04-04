@@ -1,4 +1,4 @@
-import { DL, DT, Separator, DD, Box } from '@atomic/shared'
+import { DL, DT, Separator, DD, Box } from '../../shared'
 import { QuoteDataModel } from '@entities/quote'
 import { FC } from 'react'
 

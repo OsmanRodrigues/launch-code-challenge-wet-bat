@@ -1,13 +1,13 @@
+import { FC } from 'react'
+import { observer } from 'mobx-react-lite'
+import { useForm } from 'react-hook-form'
 import {
     Box, Button, Card, Form, IInputComposedOption, InputComposed, Separator
 } from '../../../shared'
-import { observer } from 'mobx-react-lite'
-import { FC } from 'react'
 import { quickQuoteFormInfos } from './constants'
-import { useForm } from 'react-hook-form'
 import { QuoteViewModel } from '@entities/quote'
 import { QuoteTransportationType } from '@entities/constants'
-import { quoteStore } from '@domain'
+import { quoteStore } from '@domain/quote-domain/quote-store'
 
 const transportationTypeOptions = Object
     .keys(QuoteTransportationType)

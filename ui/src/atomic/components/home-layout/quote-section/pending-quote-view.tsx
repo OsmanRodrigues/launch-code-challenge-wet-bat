@@ -1,8 +1,8 @@
 import { FC, useEffect, useState } from 'react'
 import { observer } from 'mobx-react-lite'
-import { quoteStore } from '@domain/quote-domain/quote-store'
 import { CardWithActions, QuotesTable } from '../../common-layout'
-import { Paragraph } from '@atomic/shared'
+import { Paragraph } from '../../../shared/typography.atm'
+import { quoteStore } from '@domain/quote-domain/quote-store'
 
 export const PendingQuoteView: FC = observer(() => {
     const [getQuotesError, setGetQuotesError] = useState<{message: string}|null>(null)

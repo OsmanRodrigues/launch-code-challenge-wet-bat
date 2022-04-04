@@ -1,9 +1,9 @@
 import { FC, useContext } from 'react'
-import { Paragraph } from '@atomic/shared'
-import { QuoteDataModel } from '@entities/quote'
 import { QuotesPageContext } from 'pages/quotes/[id]'
+import { Paragraph } from '../../shared/typography.atm'
 import { CurrentQuoteDetailsCard } from './current-quote-details-card'
 import { CardWithActions } from '../common-layout'
+import { QuoteDataModel } from '@entities/quote'
 
 interface ICurrentQuoteDetailsView {
     quote?: QuoteDataModel

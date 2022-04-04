@@ -1,8 +1,8 @@
 
 import { FC } from 'react'
 import { useRouter } from 'next/router'
-import { appRoute } from '@utils/constants'
 import { Footer, Paragraph, Icon, LinkButton, NavBar, Separator } from '../../shared'
+import { appRoute } from '@utils/constants'
 
 export const MainNav: FC = () => {
     const { asPath: currentRoute } = useRouter()

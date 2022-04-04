@@ -1,6 +1,6 @@
 import { QuoteSection } from '@atomic/components/home-layout'
 import { Helmet } from '@atomic/components/main-layout/main-helmet'
-import { pageData } from '@utils'
+import { pageData } from '@utils/constants'
 import type { NextPage } from 'next'
 
 const { home: homePage } = pageData

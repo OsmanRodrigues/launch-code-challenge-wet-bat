@@ -6,7 +6,7 @@ import { pageData } from '@utils/constants'
 import { QuoteDataModel } from '@entities/quote'
 import { QuotesDetaislSection } from '@atomic/components/quotes-layout'
 import { QuoteStore, quoteStore } from '@domain/quote-domain'
-import { getRevalidateParams } from '@utils'
+import { getRevalidateParams } from '@utils/get-revalidate-params'
 
 enableStaticRendering(true)
 
