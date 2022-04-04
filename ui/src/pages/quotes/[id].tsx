@@ -5,16 +5,19 @@ import { Helmet } from '@atomic/components/main-layout/main-helmet'
 import { pageData } from '@utils/constants'
 import { QuoteDataModel } from '@entities/quote'
 import { QuotesDetaislSection } from '@atomic/components/quotes-layout'
-import { quoteStore } from '@domain/quote-domain'
+import { QuoteStore, quoteStore } from '@domain/quote-domain'
+import { getRevalidateParams } from '@utils'
 
 enableStaticRendering(true)
 
 const { quotes: quotesPage } = pageData
 
-type IQuotesPageError = Record<'onGetQuotes'|'onGetCurrentQuote', string | null>
+type IQuotesPageError = Record<'onGetQuotes' | 'onGetCurrentQuote', string | null>
+
 export interface IQuotesPage {
-    currentQuote: QuoteDataModel | null
-    quotes: QuoteDataModel[] | null
+    store?: QuoteStore,
+    currentQuote: QuoteDataModel | null,
+    quotes: QuoteDataModel[] | null,
     error: IQuotesPageError
 }
 
@@ -43,12 +46,22 @@ const QuotesPage: NextPage<IQuotesPage> = ({currentQuote, error, quotes}) => {
 export const getStaticProps: GetStaticProps<
     IQuotesPage,
     { id: string }
-> = async context => {
+> = async (contex) => {
     const requestError = { ...pageError }
 
-    if(context.params) await quoteStore.getQuoteById(+context.params?.id, {
-        onFail: () => requestError.onGetCurrentQuote = 'Quote not found.'
-    })
+    if (contex.params) {
+        const { id, shouldRevalidate } = getRevalidateParams(contex.params.id)
+        const getQuoteCall = quoteStore.getQuoteById(id, {
+            onFail: () => (requestError.onGetCurrentQuote = 'Quote not found.')
+        })
+        const getQuoteListCall = quoteStore.getQuotes({
+            onFail: () => requestError.onGetCurrentQuote = 'Failed to get quotes table.'
+        }, !shouldRevalidate)
+        await Promise.all([
+            getQuoteCall,
+            getQuoteListCall
+        ])
+    }
 
     return {
         props: {
@@ -60,10 +73,16 @@ export const getStaticProps: GetStaticProps<
 }
 
 export const getStaticPaths: GetStaticPaths = async () => {
+    // Get the paths we want to pre-render based on posts
+    //const paths = posts.map(post => ({
+    //    params: { id: post.id }
+    //}))
+
+    // We'll pre-render only these paths at build time.
+    // { fallback: blocking } will server-render pages
+    // on-demand if the path doesn't exist.
     return {
-        paths: [
-            { params: { id: '1' } }
-        ],
+        paths: [{ params: { id: '1' } }],
         fallback: true
     }
 }
