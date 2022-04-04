@@ -7,7 +7,7 @@ import {
 import { quickQuoteFormInfos } from './constants'
 import { QuoteViewModel } from '@entities/quote'
 import { QuoteTransportationType } from '@entities/constants'
-import { quoteStore } from '@domain/quote-domain/quote-store'
+import { QuoteStore, quoteStore } from '@domain/quote-domain/quote-store'
 
 const transportationTypeOptions = Object
     .keys(QuoteTransportationType)
@@ -15,7 +15,11 @@ const transportationTypeOptions = Object
         id: key, value: key, title: key
     }))
 
-export const QuickQuoteForm: FC = observer(() => {
+interface IQuickQuoteForm {
+    store?: QuoteStore
+}
+
+export const QuickQuoteForm: FC<IQuickQuoteForm> = observer(({store = quoteStore}) => {
     const { formId, section, input, buttonSubmit } = quickQuoteFormInfos
 
     const { register, handleSubmit, formState: { errors } } = useForm<QuoteViewModel>()
@@ -26,12 +30,12 @@ export const QuickQuoteForm: FC = observer(() => {
             returnDate: new Date(data.returnDate).toISOString()
         }
 
-        quoteStore.createQuote(newQuote, {
+        store.createQuote(newQuote, {
             onSucess: () => {
                 const shoouldRefreshList = confirm(
                     'Quote created Successfuly. Refresh the pending quotes list?'
                 )
-                if(shoouldRefreshList) quoteStore.getQuotes()
+                if(shoouldRefreshList) store.getQuotes()
             },
             onFail: (err) => {
                 alert(`Create quick quote failed. ${err?.message || '' }`)
