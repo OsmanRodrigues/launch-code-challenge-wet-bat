@@ -32,7 +32,7 @@ const tableFields = Object.keys(QuotesTableField)
 
 interface IQuotesTable {
     store?: QuoteStore,
-    quotes?: QuoteDataModel[],
+    quotes?: QuoteDataModel[] | null,
     filter?: keyof typeof QuotesTableFilter,
     fields?: (keyof typeof QuotesTableField)[],
     shouldInteractive?: boolean
@@ -40,15 +40,18 @@ interface IQuotesTable {
 
 
 export const QuotesTable: FC<IQuotesTable> = observer(({
-    store = quoteStore, filter, fields, shouldInteractive
+    store = quoteStore, quotes, filter, fields, shouldInteractive
 }) => {
-    const quotesFallback = filter ? store[QuotesTableFilter[filter]] : store.quotes
-    const tableFieldsFallback = fields || tableFields
     const { replace } = useRouter()
+    const tableFilter = filter ? QuotesTableFilter[filter] : null
+    const quotesFallback = quotes ?? (
+        tableFilter ? store[tableFilter] : store.quotes
+    )
+    const tableFieldsFallback = fields || tableFields
 
     return (
         <TableWrapper>
-            {quotesFallback.length ? (
+            {quotesFallback?.length ? (
                 <Table>
                     <TableHeaders>
                         <TableRow key={'head'}>

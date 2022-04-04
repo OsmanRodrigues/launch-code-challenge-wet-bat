@@ -25,7 +25,7 @@ export const CardWithActions: FC<ICardWithActions> = props => {
                                 typeStyle="icon"
                                 onClick={props.handleRefresh}
                             >
-                                <Icon.Refresh />
+                                <Icon.Refresh color='darkGray' />
                             </Button>
                         </Box>
                     ) : null}

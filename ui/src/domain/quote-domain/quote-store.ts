@@ -11,7 +11,7 @@ export class QuoteStore {
         private isSSR = !!process.env.SSR,
         private request = new ServerRequestFacade(),
         private selectedQuoteMap: Record<number, QuoteDataModel> = {},
-        public quotes: QuoteDataModel[] = [],
+        public quotes: QuoteDataModel[] | null = null,
         public currentQuote: QuoteDataModel | null = null,
     ) {
         makeAutoObservable(this, {
@@ -20,19 +20,21 @@ export class QuoteStore {
             getQuotes: action,
             getQuoteById: action,
             createQuote: action,
-            pendingQuotes: computed,
-            //currentQuotes: computed
+            pendingQuotes: computed
         })
     }
 
     getQuotes = async (
         resolvers?: Resolvers<GetQuotesData>,
         shouldCache?: boolean
-    ) => {
+    ): Promise<void> => {
+        if (shouldCache && this.quotes) {
+            return void(0)
+        }
+
         const result = await this.request.get<GetQuotesData>(
             '/quote',
-            resolvers,
-            shouldCache
+            resolvers
         )
 
         if (result.data) this.quotes = result.data.quotes
@@ -53,7 +55,6 @@ export class QuoteStore {
         if (shouldGetList) await this.getQuotes({
             onFail: (err) => resolvers?.onFail?.(err)
         }, true)
-
 
         const quoteInList = this.quotes ? this.quotes.find(quote => quote.id === quoteId) : null
 
@@ -81,10 +82,6 @@ export class QuoteStore {
     get pendingQuotes() {
         return this.quotes?.filter(quote => quote.statusCurrent === 'pending')
     }
-
-    /* get currentQuotes() {
-        return this.quotes
-    } */
 
 }
 
