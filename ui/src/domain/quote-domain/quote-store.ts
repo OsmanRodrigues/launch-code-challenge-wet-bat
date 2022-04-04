@@ -1,6 +1,6 @@
 import { action, computed, makeAutoObservable, observable } from 'mobx'
 import { QuoteDataModel, QuoteViewModel } from '@entities/quote'
-import { ServerRequestFacade, Resolvers } from '@frameworks/server-request'
+import { ServerRequestFacade, Resolvers } from '@adapters/server-request'
 
 export interface GetQuotesData {
     quotes: QuoteDataModel[]

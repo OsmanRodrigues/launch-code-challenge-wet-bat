@@ -1,4 +1,4 @@
-import { Resolvers, ServerRequestFacade } from '@frameworks/server-request'
+import { Resolvers, ServerRequestFacade } from '@adapters/server-request'
 import { useRouter } from 'next/router'
 
 export const useRevalidateISR = (resolvers?: Resolvers<void>) => {
