@@ -6,10 +6,9 @@ import type { NextPage } from 'next'
 const { home: homePage } = pageData
 
 const Home: NextPage = () => {
-
     return (
         <>
-            <Helmet title={homePage.title} description={homePage.description}/>
+            <Helmet title={homePage.title} description={homePage.description} />
             <QuoteSection />
         </>
     )
