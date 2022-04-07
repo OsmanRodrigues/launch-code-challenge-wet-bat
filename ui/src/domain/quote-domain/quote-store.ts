@@ -1,6 +1,5 @@
-import { action, computed, makeAutoObservable, observable } from 'mobx'
-import { QuoteDataModel, QuoteViewModel } from '@entities/quote'
-import { ServerRequestFacade, Resolvers } from '@adapters/server-request'
+import { action, computed, makeAutoObservable, observable, runInAction } from 'mobx'
+import { QuoteDataModel } from '@entities/quote'
 
 export interface GetQuotesData {
     quotes: QuoteDataModel[]
@@ -8,11 +7,10 @@ export interface GetQuotesData {
 
 export class QuoteStore {
     constructor(
-        private isSSR = !!process.env.SSR,
-        private request = new ServerRequestFacade(),
+        private apiBaseUrl = process.env.NEXT_PUBLIC_API_URL,
         private selectedQuoteMap: Record<number, QuoteDataModel> = {},
         public quotes: QuoteDataModel[] | null = null,
-        public currentQuote: QuoteDataModel | null = null,
+        public currentQuote: QuoteDataModel | null = null
     ) {
         makeAutoObservable(this, {
             quotes: observable,
@@ -20,69 +18,65 @@ export class QuoteStore {
             getQuotes: action,
             getQuoteById: action,
             createQuote: action,
-            pendingQuotes: computed
+            pendingQuotes: computed({
+                equals: (a: QuoteDataModel[] | null, b) =>
+                    a?.length === b?.length
+            })
         })
     }
 
-    getQuotes = async (
-        resolvers?: Resolvers<GetQuotesData>,
-        shouldCache?: boolean
-    ): Promise<void> => {
-        if (shouldCache && this.quotes) {
-            return void(0)
-        }
+    getQuotes = () => fetch(`${this.apiBaseUrl}/quote`, {method: 'get'})
 
-        const result = await this.request.get<GetQuotesData>(
-            '/quote',
-            resolvers
-        )
-
-        if (result.data) this.quotes = result.data.quotes
+    set setQuotes(quotes: QuoteDataModel[]) {
+        this.quotes = quotes
     }
 
     getQuoteById = async (
-        quoteId: number,
-        resolvers?: Resolvers<QuoteDataModel>
+        quoteId: number
     ) => {
         const quoteInCache = this.selectedQuoteMap?.[quoteId]
 
         if (quoteInCache) {
-            this.currentQuote = quoteInCache
+            runInAction(() => {
+                this.currentQuote = quoteInCache
+            })
             return
         }
-        const shouldGetList = this.isSSR && !this.quotes
 
-        if (shouldGetList) await this.getQuotes({
-            onFail: (err) => resolvers?.onFail?.(err)
-        }, true)
-
-        const quoteInList = this.quotes ? this.quotes.find(quote => quote.id === quoteId) : null
+        const quoteInList = this.quotes
+            ? this.quotes.find(quote => quote.id === quoteId)
+            : null
 
         if (quoteInList) {
             this.selectedQuoteMap[quoteId] = quoteInList
-            this.currentQuote = quoteInList
+            runInAction(() => {
+                this.currentQuote = quoteInList
+            })
             return
         }
 
-        const { data: quote } = await this.request.get<QuoteDataModel>(
-            `/quote/${quoteId}`, resolvers
-        )
-
-        this.selectedQuoteMap[quoteId] = quote
-        this.currentQuote = quote
+        /*
+        TODO: refactor this
+        this.selectedQuoteMap[quoteId] = {quote}
+        runInAction(() => {
+            this.currentQuote = quote
+        }) */
     }
 
-    createQuote = async (
-        quoteData: QuoteViewModel,
-        resolvers?: Resolvers<QuoteDataModel>
-    ) => {
-        await this.request.post('/quote', quoteData, resolvers)
-    }
+    createQuote = (quoteData: string) => fetch(
+        `${this.apiBaseUrl}/quote`,
+        {
+            method: 'post',
+            body: quoteData,
+            headers: {
+                'Content-Type': 'application/json'
+            }
+        }
+    )
 
     get pendingQuotes() {
         return this.quotes?.filter(quote => quote.statusCurrent === 'pending')
     }
-
 }
 
 export const quoteStore = new QuoteStore()

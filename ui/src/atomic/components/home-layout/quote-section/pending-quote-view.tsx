@@ -1,39 +1,20 @@
-import { FC, useEffect, useState } from 'react'
-import { observer } from 'mobx-react-lite'
+import { FC } from 'react'
 import { CardWithActions, QuotesTable } from '../../common-layout'
 import { Paragraph } from '../../../shared/typography.atm'
-import { QuoteStore, quoteStore } from '@domain/quote-domain/quote-store'
+import { useQueryQuote } from '@adapters/query'
 
-interface IPendingQuoteView {
-    store?: QuoteStore
-}
-
-export const PendingQuoteView: FC<IPendingQuoteView> = observer(({ store = quoteStore }) => {
-    const [getQuotesError, setGetQuotesError] = useState<{message: string}|null>(null)
-    useEffect(() => {
-        store.getQuotes({
-            onFail: () => setGetQuotesError({ message: 'Failed to get pending quotes.' })
-        }, true)
-    }, [store])
-
-    const handleRefresh = () => {
-        setGetQuotesError(null)
-        store.getQuotes({
-            onFail: () => setGetQuotesError({ message: 'Failed to refresh pending quotes.' })
-        })
-    }
+export const PendingQuoteView: FC = () => {
+    const [{ data, error, loading }, { refresh }] = useQueryQuote('filter=pending')
 
     return (
         <CardWithActions
             iconMain="Pending"
             title="Pending quotes"
-            handleRefresh={handleRefresh}
+            handleRefresh={refresh}
         >
-            {getQuotesError ? (
-                <Paragraph>{getQuotesError.message} </Paragraph>
-            ) : (
-                <QuotesTable filter="pending" store={quoteStore} shouldInteractive />
-            )}
+            {loading ? <Paragraph>Loading data...</Paragraph> : null}
+            {error ? <Paragraph>{error.message}</Paragraph> : null}
+            {data ? <QuotesTable quotes={data} shouldInteractive /> : null}
         </CardWithActions>
     )
-})
+}

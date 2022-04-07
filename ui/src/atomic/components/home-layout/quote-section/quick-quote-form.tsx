@@ -1,5 +1,4 @@
-import { FC } from 'react'
-import { observer } from 'mobx-react-lite'
+import { FC, useEffect } from 'react'
 import { useForm } from 'react-hook-form'
 import {
     Box, Button, Card, Form, IInputComposedOption, InputComposed, Separator
@@ -7,7 +6,8 @@ import {
 import { quickQuoteFormInfos } from './constants'
 import { QuoteViewModel } from '@entities/quote'
 import { QuoteTransportationType } from '@entities/constants'
-import { QuoteStore, quoteStore } from '@domain/quote-domain/quote-store'
+import { useMutateQuote } from '@adapters/mutation'
+import { useQueryQuote } from '@adapters/query'
 
 const transportationTypeOptions = Object
     .keys(QuoteTransportationType)
@@ -15,32 +15,34 @@ const transportationTypeOptions = Object
         id: key, value: key, title: key
     }))
 
-interface IQuickQuoteForm {
-    store?: QuoteStore
+interface CreateResponse {
+    message: string
+    action: string
 }
 
-export const QuickQuoteForm: FC<IQuickQuoteForm> = observer(({store = quoteStore}) => {
+export const QuickQuoteForm: FC = () => {
+    const { register, handleSubmit, formState: { errors } } = useForm<QuoteViewModel>()
+    const [{data, error, loading}, {mutateCMS}] = useMutateQuote()
+    const {refresh} = useQueryQuote('filter=pending')[1]
+
     const { formId, section, input, buttonSubmit } = quickQuoteFormInfos
 
-    const { register, handleSubmit, formState: { errors } } = useForm<QuoteViewModel>()
+    useEffect(() => {
+        if (data?.action === 'create') {
+            const shouldRefreshList = confirm(
+                `${data.message} Refresh the pending quotes list?`
+            )
+            if (shouldRefreshList) refresh()
+        }
+    }, [data?.action, data?.message, refresh])
+
     const onSubmit = (data: QuoteViewModel) => {
         const newQuote: QuoteViewModel = {
             ...data,
             departureDate: new Date(data.departureDate).toISOString(),
             returnDate: new Date(data.returnDate).toISOString()
         }
-
-        store.createQuote(newQuote, {
-            onSucess: () => {
-                const shoouldRefreshList = confirm(
-                    'Quote created Successfuly. Refresh the pending quotes list?'
-                )
-                if(shoouldRefreshList) store.getQuotes()
-            },
-            onFail: (err) => {
-                alert(`Create quick quote failed. ${err?.message || '' }`)
-            }
-        })
+        mutateCMS('create',newQuote)
     }
 
     return (
@@ -151,7 +153,7 @@ export const QuickQuoteForm: FC<IQuickQuoteForm> = observer(({store = quoteStore
                     />
                     <Separator vertical />
                     <Box position="center" fluid>
-                        <Button type="submit" typeStyle="callToAction" form={formId}>
+                        <Button type="submit" typeStyle="callToAction" form={formId} disabled={loading}>
                             {buttonSubmit}
                         </Button>
                     </Box>
@@ -159,4 +161,4 @@ export const QuickQuoteForm: FC<IQuickQuoteForm> = observer(({store = quoteStore
             </Card>
         </Form>
     )
-})
+}
