@@ -1,6 +1,6 @@
 import { action, computed, makeAutoObservable, observable } from 'mobx'
 import { QuoteDataModel, QuoteViewModel } from '@entities/quote'
-import { ServerRequestFacade, Resolvers } from '@frameworks/server-request'
+import { ServerRequestFacade, Resolvers } from '@adapters/server-request'
 
 export interface GetQuotesData {
     quotes: QuoteDataModel[]
@@ -27,11 +27,14 @@ export class QuoteStore {
     getQuotes = async (
         resolvers?: Resolvers<GetQuotesData>,
         shouldCache?: boolean
-    ) => {
+    ): Promise<void> => {
+        if (shouldCache && this.quotes) {
+            return void(0)
+        }
+
         const result = await this.request.get<GetQuotesData>(
             '/quote',
-            resolvers,
-            shouldCache
+            resolvers
         )
 
         if (result.data) this.quotes = result.data.quotes
@@ -52,7 +55,6 @@ export class QuoteStore {
         if (shouldGetList) await this.getQuotes({
             onFail: (err) => resolvers?.onFail?.(err)
         }, true)
-
 
         const quoteInList = this.quotes ? this.quotes.find(quote => quote.id === quoteId) : null
 

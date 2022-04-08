@@ -16,7 +16,7 @@ const iconSharedCss = css<IconSharedCss>`
     color: ${props => props.color ? color[props.color] : 'inherit'};
 
     &:hover {
-        background-color: ${color.darkGray};
+        background-color: ${color.gray};
         border-radius: ${radius.button.icon};
     }
 `

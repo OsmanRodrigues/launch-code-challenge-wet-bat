@@ -23,7 +23,7 @@ export const BoxStyled = styled.div<BoxLayout>`
     width: ${props => props.fluid && size.general.fluid};
     display: flex;
     flex-direction: ${props => (props.horizontal ? 'row' : 'column')};
-    //flex-grow: ${props => props.grow || 1};
+    flex-grow: ${props => props.grow || 1};
     ${({ horizontal, position }) =>
         position &&
         `

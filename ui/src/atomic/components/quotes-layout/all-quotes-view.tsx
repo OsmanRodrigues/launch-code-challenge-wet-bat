@@ -1,21 +1,40 @@
-import { FC, useContext } from 'react'
+import { FC, useContext, useState } from 'react'
 import { QuotesPageContext } from 'pages/quotes/[id]'
-import { QuoteDataModel } from '@entities/quote'
 import { CardWithActions, QuotesTable } from '../common-layout'
+import { useRevalidateISR } from '../../hooks/revalidate-hook'
 import { Paragraph } from '../../shared'
 
-interface IAllQuotesTable {
-    quotes?: QuoteDataModel[]
-}
+export const AllQuotesView: FC = () => {
+    const [revalidateError, setRevalidateError] = useState<{message?: string}|null>(null)
+    const { quotes, error } = useContext(QuotesPageContext)
+    const hasTableError = error?.onGetQuotes
+    const { revalidate } = useRevalidateISR({
+        onFail: () => setRevalidateError({
+            message: 'Failed to refresh list.'
+        })
+    })
 
-export const AllQuotesView: FC<IAllQuotesTable> = () => {
-    const { quotes } = useContext(QuotesPageContext)
+    const handleRevalidate = () => {
+        setRevalidateError(null)
+        revalidate()
+    }
 
     return (
-        <CardWithActions iconMain="Quote" title="All quotes">
-            {quotes?.length ?
-                <QuotesTable quotes={quotes} fields={['Id', 'Name']} shouldInteractive/> :
-                <Paragraph>No data.</Paragraph>
+        <CardWithActions
+            iconMain="Quote"
+            title="All quotes"
+            handleRefresh={handleRevalidate}
+        >
+            {revalidateError ? (
+                <Paragraph color="fail">{revalidateError.message}</Paragraph>
+            ) : null}
+            {hasTableError ?
+                <Paragraph color="fail">{error?.onGetQuotes}</Paragraph> :
+                <QuotesTable
+                    quotes={quotes}
+                    fields={['Id', 'Name']}
+                    shouldInteractive
+                />
             }
         </CardWithActions>
     )
