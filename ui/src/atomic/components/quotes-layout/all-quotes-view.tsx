@@ -1,40 +1,26 @@
-import { FC, useContext, useState } from 'react'
-import { QuotesPageContext } from 'pages/quotes/[id]'
+import { FC } from 'react'
 import { CardWithActions, QuotesTable } from '../common-layout'
-import { useRevalidateISR } from '../../hooks/revalidate-hook'
-import { Paragraph } from '../../shared'
+import { Paragraph } from '@atomic/shared'
+import { useQueryQuote } from '@adapters/query'
 
 export const AllQuotesView: FC = () => {
-    const [revalidateError, setRevalidateError] = useState<{message?: string}|null>(null)
-    const { quotes, error } = useContext(QuotesPageContext)
-    const hasTableError = error?.onGetQuotes
-    const { revalidate } = useRevalidateISR({
-        onFail: () => setRevalidateError({
-            message: 'Failed to refresh list.'
-        })
-    })
-
-    const handleRevalidate = () => {
-        setRevalidateError(null)
-        revalidate()
-    }
+    const [{data, error, loading}, {refresh}] = useQueryQuote()
 
     return (
         <CardWithActions
             iconMain="Quote"
             title="All quotes"
-            handleRefresh={handleRevalidate}
+            handleRefresh={refresh}
         >
-            {revalidateError ? (
-                <Paragraph color="fail">{revalidateError.message}</Paragraph>
-            ) : null}
-            {hasTableError ?
-                <Paragraph color="fail">{error?.onGetQuotes}</Paragraph> :
+            {loading ? <Paragraph>Loading quotes...</Paragraph> : null}
+            {error ? <Paragraph>An error occourried on get quotes.</Paragraph> : null}
+            {data?.quotes ?
                 <QuotesTable
-                    quotes={quotes}
+                    quotes={data.quotes}
                     fields={['Id', 'Name']}
                     shouldInteractive
-                />
+                /> :
+                null
             }
         </CardWithActions>
     )
