@@ -6,9 +6,16 @@ export enum QuoteAction {
     refresh = 'refresh'
 }
 
+const responseState = {
+    status: 200,
+    result: <Record<string, string | null>>{
+        message: null
+    }
+}
+
 const handler: NextApiHandler = async (req, res) => {
-    const shouldRefresh = req.query?.action === 'refresh'
-    const filter = req.query?.filter
+    const { action, filter, id } = req.query
+    const shouldRefresh = action === 'refresh'
 
     if (shouldRefresh || !quoteStore.quotes) {
         const preRequest = await quoteStore.getQuotes()
@@ -17,11 +24,23 @@ const handler: NextApiHandler = async (req, res) => {
         quoteStore.setQuotes = result.quotes
     }
 
+    if (id) {
+        await quoteStore.getQuoteById(id as string)
+    }
+
     switch (true) {
     case filter === 'pending':
-        return res.json(quoteStore.pendingQuotes)
+        return res
+            .status(responseState.status)
+            .json({ ...responseState.result, quotes: quoteStore.pendingQuotes })
+    case !!id:
+        return res
+            .status(responseState.status)
+            .json({ ...responseState.result, quote: quoteStore.currentQuote })
     default:
-        return res.json(quoteStore.quotes)
+        return res
+            .status(responseState.status)
+            .json({ ...responseState.result, quotes: quoteStore.quotes })
     }
 }
 

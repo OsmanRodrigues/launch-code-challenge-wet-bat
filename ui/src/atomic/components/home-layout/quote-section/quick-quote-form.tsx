@@ -22,7 +22,7 @@ interface CreateResponse {
 
 export const QuickQuoteForm: FC = () => {
     const { register, handleSubmit, formState: { errors } } = useForm<QuoteViewModel>()
-    const [{data, error, loading}, {mutateCMS}] = useMutateQuote()
+    const [{data, error, loading}, {mutate,mutateCMS}] = useMutateQuote()
     const {refresh} = useQueryQuote('filter=pending')[1]
 
     const { formId, section, input, buttonSubmit } = quickQuoteFormInfos

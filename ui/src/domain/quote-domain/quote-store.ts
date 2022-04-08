@@ -8,7 +8,7 @@ export interface GetQuotesData {
 export class QuoteStore {
     constructor(
         private apiBaseUrl = process.env.NEXT_PUBLIC_API_URL,
-        private selectedQuoteMap: Record<number, QuoteDataModel> = {},
+        private selectedQuoteMap: Map<number, QuoteDataModel> = new Map(),
         public quotes: QuoteDataModel[] | null = null,
         public currentQuote: QuoteDataModel | null = null
     ) {
@@ -32,35 +32,31 @@ export class QuoteStore {
     }
 
     getQuoteById = async (
-        quoteId: number
+        quoteId: string
     ) => {
-        const quoteInCache = this.selectedQuoteMap?.[quoteId]
+        const id = +quoteId
+        const quoteInCache = this.selectedQuoteMap.get(id)
 
         if (quoteInCache) {
-            runInAction(() => {
-                this.currentQuote = quoteInCache
-            })
+            this.setCurrentQuote = quoteInCache
+
             return
         }
 
         const quoteInList = this.quotes
-            ? this.quotes.find(quote => quote.id === quoteId)
+            ? this.quotes.find(quote => quote.id === id)
             : null
 
         if (quoteInList) {
-            this.selectedQuoteMap[quoteId] = quoteInList
-            runInAction(() => {
-                this.currentQuote = quoteInList
-            })
+            this.selectedQuoteMap.set(id, quoteInList)
+            this.setCurrentQuote = quoteInList
+
             return
         }
+    }
 
-        /*
-        TODO: refactor this
-        this.selectedQuoteMap[quoteId] = {quote}
-        runInAction(() => {
-            this.currentQuote = quote
-        }) */
+    set setCurrentQuote(quote: QuoteDataModel) {
+        this.currentQuote = quote
     }
 
     createQuote = (quoteData: string) => fetch(

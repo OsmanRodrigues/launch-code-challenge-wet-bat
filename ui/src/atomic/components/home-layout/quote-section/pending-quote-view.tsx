@@ -14,7 +14,7 @@ export const PendingQuoteView: FC = () => {
         >
             {loading ? <Paragraph>Loading data...</Paragraph> : null}
             {error ? <Paragraph>{error.message}</Paragraph> : null}
-            {data ? <QuotesTable quotes={data} shouldInteractive /> : null}
+            {data ? <QuotesTable quotes={data.quotes} shouldInteractive /> : null}
         </CardWithActions>
     )
 }
