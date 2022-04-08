@@ -4,12 +4,15 @@ import { QuoteAction } from './query'
 
 const responseState = {
     status: 200,
-    result: {
+    result: <Record<string, string | null>>{
         message: null
     }
 }
 
 const handler: NextApiHandler = async (req, res) => {
+    const hasStaleAction = responseState.result.action
+    if (hasStaleAction) responseState.result.action = null
+
     if (req.body) {
         const query = req.query
         switch (true) {
@@ -19,6 +22,7 @@ const handler: NextApiHandler = async (req, res) => {
             const quoteActionResult = await preRequest.json()
             responseState.status = preRequest.status
             responseState.result = { ...quoteActionResult, action: QuoteAction.create }
+            return res.status(responseState.status).json(responseState.result)
         }}
     }
 
