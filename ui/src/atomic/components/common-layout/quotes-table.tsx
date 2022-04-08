@@ -1,5 +1,4 @@
 import { FC } from 'react'
-import { observer } from 'mobx-react-lite'
 import { useRouter } from 'next/router'
 import {
     TableHeaders,
@@ -15,11 +14,6 @@ import {
 } from '../../shared'
 import { QuoteDataModel } from '@entities/quote'
 import { appRoute } from '@utils/constants'
-import { QuoteStore, quoteStore } from '@domain/quote-domain/quote-store'
-
-export enum QuotesTableFilter {
-    pending = 'pendingQuotes'
-}
 
 export enum QuotesTableField {
     Id = 'id',
@@ -31,27 +25,21 @@ export enum QuotesTableField {
 const tableFields = Object.keys(QuotesTableField)
 
 interface IQuotesTable {
-    store?: QuoteStore,
-    quotes?: QuoteDataModel[] | null,
-    filter?: keyof typeof QuotesTableFilter,
+    quotes: QuoteDataModel[],
     fields?: (keyof typeof QuotesTableField)[],
     shouldInteractive?: boolean
 }
 
-
-export const QuotesTable: FC<IQuotesTable> = observer(({
-    store = quoteStore, quotes, filter, fields, shouldInteractive
+export const QuotesTable: FC<IQuotesTable> = ({
+    quotes, fields, shouldInteractive
 }) => {
     const { replace } = useRouter()
-    const tableFilter = filter ? QuotesTableFilter[filter] : null
-    const quotesFallback = quotes ?? (
-        tableFilter ? store[tableFilter] : store.quotes
-    )
     const tableFieldsFallback = fields || tableFields
+    const hasData = !!quotes.length
 
     return (
         <TableWrapper>
-            {quotesFallback?.length ? (
+            { hasData ? (
                 <Table>
                     <TableHeaders>
                         <TableRow key={'head'}>
@@ -61,7 +49,7 @@ export const QuotesTable: FC<IQuotesTable> = observer(({
                         </TableRow>
                     </TableHeaders>
                     <TableBody>
-                        {quotesFallback.map((data: QuoteDataModel) => (
+                        {quotes.map((data: QuoteDataModel) => (
                             <TableRow key={data.id}>
                                 {tableFieldsFallback.map((field, index) => {
                                     const currentField =
@@ -69,16 +57,13 @@ export const QuotesTable: FC<IQuotesTable> = observer(({
                                             field as keyof typeof QuotesTableField
                                         ]
                                     const currentData = data[currentField]
+                                    const isPrice = currentField === QuotesTableField.Price
 
                                     return (
                                         <TableData
                                             key={`${currentData}_${index}`}
                                         >
-                                            {`${
-                                                field === 'priceFinal'
-                                                    ? '$ '
-                                                    : ''
-                                            }${currentData}`}
+                                            {`${isPrice ? '$ ' : ''}${currentData}`}
                                         </TableData>
                                     )
                                 })}
@@ -108,4 +93,4 @@ export const QuotesTable: FC<IQuotesTable> = observer(({
             )}
         </TableWrapper>
     )
-})
+}

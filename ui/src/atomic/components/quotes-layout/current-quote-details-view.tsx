@@ -1,31 +1,22 @@
-import { FC, useContext } from 'react'
-import { QuotesPageContext } from 'pages/quotes/[id]'
+import { FC } from 'react'
 import { Paragraph } from '../../shared/typography.atm'
 import { CurrentQuoteDetailsCard } from './current-quote-details-card'
 import { CardWithActions } from '../common-layout'
-import { QuoteDataModel } from '@entities/quote'
+import { useQueryQuote } from '@adapters/query'
+import { useRouter } from 'next/router'
 
-interface ICurrentQuoteDetailsView {
-    quote?: QuoteDataModel
-}
-
-
-export const CurrentQuoteDetailsView: FC<ICurrentQuoteDetailsView> = () => {
-    const { currentQuote, error } = useContext(QuotesPageContext)
-
-    const hasError = error?.onGetCurrentQuote
+export const CurrentQuoteDetailsView: FC = () => {
+    const { query } = useRouter()
+    const [{data, error, loading}] = useQueryQuote(`id=${query.id}`)
 
     return (
-        <CardWithActions iconMain="Quote" title={`Quote ID: ${currentQuote?.id || ''}`}>
-            {hasError ?
-                <Paragraph>
-                    {error.onGetCurrentQuote}
-                </Paragraph> :
-                currentQuote ?
-                    <CurrentQuoteDetailsCard quote={currentQuote} /> :
-                    <Paragraph> No detailed data. Select one in all quotes </Paragraph>
+        <CardWithActions iconMain="Quote" title={`Quote ID: ${1 || ''}`}>
+            { loading ?<Paragraph>Loading quote infos...</Paragraph> :null}
+            { error ?<Paragraph>An error occourried on get this quote infos.</Paragraph> :null}
+            {data?.quote ?
+                <CurrentQuoteDetailsCard quote={data.quote} /> :
+                <Paragraph> No detailed data. Select one in all quotes </Paragraph>
             }
-
         </CardWithActions>
     )
 }
