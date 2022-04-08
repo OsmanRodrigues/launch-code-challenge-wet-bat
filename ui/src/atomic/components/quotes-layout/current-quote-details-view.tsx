@@ -10,7 +10,7 @@ export const CurrentQuoteDetailsView: FC = () => {
     const [{data, error, loading}] = useQueryQuote(`id=${query.id}`)
 
     return (
-        <CardWithActions iconMain="Quote" title={`Quote ID: ${1 || ''}`}>
+        <CardWithActions iconMain="Quote" title={`Quote ID: ${query.id || ''}`}>
             { loading ?<Paragraph>Loading quote infos...</Paragraph> :null}
             { error ?<Paragraph>An error occourried on get this quote infos.</Paragraph> :null}
             {data?.quote ?
